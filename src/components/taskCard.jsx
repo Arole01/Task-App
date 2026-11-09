@@ -1,4 +1,3 @@
-import colors from "tailwindcss/colors";
 import CofeeCup from "../assets/tea-cup.jpg";
 import {
   FolderOpen,
@@ -14,6 +13,7 @@ const taskCards = [
     count: 24,
     subtitle: "+3 since yesterday",
     icon: FolderOpen,
+    trendIcon: TrendingUp,
     color: "#555555",
     bgcolor: "#E4EBFC",
   },
@@ -98,9 +98,14 @@ function TaskCard() {
               {card.count}
             </h1>
 
-            <p className="text-sm font-medium" style={{ color: card.color }}>
-              {card.subtitle}
-            </p>
+            <div className="flex items-center gap-1">
+              {card.trendIcon && (
+                <card.trendIcon size={16} className="text-green-600" />
+              )}
+              <p className="text-sm font-medium" style={{ color: card.color }}>
+                {card.subtitle}
+              </p>
+            </div>
           </div>
         ))}
       </div>

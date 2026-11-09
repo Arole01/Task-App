@@ -4,7 +4,7 @@ import { Bell } from "lucide-react";
 
 function TopNav() {
   return (
-    <nav className="bg-white flex justify-between items-center w-full p-[25px 50px] border-b border-[#ddd]">
+    <nav className="bg-white flex justify-between items-center w-full p-[25px 50px] border-b border-[#ddd] sticky top-0">
       <div className="flex items-center gap-3 ">
         <div className="w-12 h-12 rounded-xl  flex items-center justify-center p-2">
           <img

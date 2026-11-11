@@ -1,39 +1,46 @@
-import image from "../assets/task-logo.jpg";
 import profileImage from "../assets/profile-image.jpeg";
 import { Bell } from "lucide-react";
 
 function TopNav() {
   return (
-    <nav className="bg-white flex justify-between items-center w-full p-[25px 50px] border-b border-[#ddd] sticky top-0">
-      <div className="flex items-center gap-3 ">
-        <div className="w-12 h-12 rounded-xl  flex items-center justify-center p-2">
-          <img
-            className="w-full h-full object-contain"
-            src={image}
-            alt="task-app logo"
+    <nav className="w-full bg-[#f8f9fd]">
+      <header className="flex h-16 items-center justify-between px-5 sm:px-8 ">
+        <div className="flex items-center w-[300px] max-w-[55%] gap-3 rounded-lg bg-[#f0f2fa] px-3 py-2">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-5 w-5 shrink-0 text-gray-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="m16 16 4 4" />
+          </svg>
+
+          <input
+            type="text"
+            placeholder="Search tasks or projects....."
+            className="w-full bg-transparent text-sm text-gray-700 outline-none placeholder:text-gray-400"
           />
         </div>
 
-        <div>
-          <h1 className="text-[22px] font-bold text-black leading-tight tracking-tight">
-            TaskFlow
-          </h1>
-          <p className="text-[12px] font-semibold text-[#646e7f] tracking-widest uppercase">
-            DASHBOARD
-          </p>
+        <div className="flex items-center gap-5">
+          <button className="relative text-gray-700 hover:text-purple-700">
+            <Bell className="w-6 h-6" />
+            <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border border-white bg-red-600"></span>
+          </button>
+          <div className="h-8 w-px bg-gray-200"></div>
+          <div className="flex items-center gap-2">
+            <img
+              className="h-9 w-9 rounded-full border border-gray-200 object-cover"
+              src={profileImage}
+              alt="profile-image"
+            />
+            <span className="text-sm font-medium text-gray-800">David</span>
+          </div>
         </div>
-      </div>
-
-      <div className="flex items-center gap-6">
-        <button className="text-[#646e7f] hover:text-[#0e1629] transition-colors">
-          <Bell className="w-6 h-6" />
-        </button>
-        <img
-          className="w-[50px] h-[50px] rounded-full object-cover"
-          src={profileImage}
-          alt="profile-image"
-        />
-      </div>
+      </header>
     </nav>
   );
 }

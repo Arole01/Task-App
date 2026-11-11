@@ -7,10 +7,13 @@ function App() {
   return (
     <>
       <div className="flex min-h-screen bg-[#f7f8fc]">
-        <SideBar />
+        <section className="sticky top-0 h-screen shrink-0">
+          <SideBar />
+        </section>
+
         <main className="flex min-w-0 flex-1 flex-col">
           <TopNav />
-          <section className="flex-1 p-5 sm:p-8">
+          <section className="min-w-0 flex-1">
             <TaskCard />
             <ProductivityProgress />
           </section>

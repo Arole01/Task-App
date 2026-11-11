@@ -5,6 +5,7 @@ import {
   CircleCheck,
   Hourglass,
   TriangleAlert,
+  ArrowRight,
 } from "lucide-react";
 
 const taskCards = [
@@ -142,6 +143,23 @@ function TaskCard() {
             <StatisticsCard key={card.title} card={card} />
           ))}
         </div>
+      </div>
+
+      <div className="flex items-center justify-between bg-white px-5 py-6 rounded-2xl shadow-sm w-full">
+        <div className="flex items-center gap-3">
+          <h2 className="text-lg font-semibold text-gray-900">My Tasks</h2>
+          <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600">
+            4 Due Soon
+          </span>
+        </div>
+
+        <a
+          href="#"
+          className="flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:text-indigo-900 transition-colors"
+        >
+          View All Tasks
+          <ArrowRight size={18} strokeWidth={2} />
+        </a>
       </div>
     </>
   );

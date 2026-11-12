@@ -3,7 +3,7 @@ import { Bell, Search } from "lucide-react";
 
 function TopNav() {
   return (
-    <nav className="w-full bg-[#f8f9fd] sticky top-0">
+    <nav className="w-full bg-[#f8f9fd] sticky top-0 z-50">
       <header className="flex h-16 items-center justify-between px-5 sm:px-8 ">
         <div className="flex items-center w-[300px] max-w-[55%] gap-3 rounded-lg bg-[#f0f2fa] px-3 py-2">
           <Search

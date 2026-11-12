@@ -1,6 +1,7 @@
 import ProductivityProgress from "./components/productivityProgress";
 import SideBar from "./components/sidebar";
 import TaskCard from "./components/taskCard";
+import TaskList from "./components/tasklist";
 import TopNav from "./components/top-nav";
 
 function App() {
@@ -12,9 +13,10 @@ function App() {
         </section>
 
         <main className="flex min-w-0 flex-1 flex-col">
-          <TopNav />
+          <TopNav className="sticky top-0" />
           <section className="min-w-0 flex-1">
             <TaskCard />
+            <TaskList />
             <ProductivityProgress />
           </section>
         </main>

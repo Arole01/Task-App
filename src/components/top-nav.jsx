@@ -1,7 +1,25 @@
+// import { useState } from "react";
 import profileImage from "../assets/profile-image.jpeg";
 import { Bell, Search } from "lucide-react";
+// import Btn from "./ui/btn";
+import { Link } from "react-router-dom";
 
-function TopNav() {
+const ProfileBar = () => {
+  return (
+    <div className="flex items-center gap-2">
+      <img
+        className="h-9 w-9 rounded-full border border-gray-200 object-cover"
+        src={profileImage}
+        alt="profile-image"
+      />
+      <span className="text-sm font-medium text-gray-800">David</span>
+    </div>
+  );
+};
+
+function TopNav({ isAuthenticated }) {
+  // const [isAuthenticated, setAuthenticated] = useState(false);
+
   return (
     <nav className="w-full bg-[#f8f9fd] sticky top-0 z-50">
       <header className="flex h-16 items-center justify-between px-5 sm:px-8 ">
@@ -24,14 +42,24 @@ function TopNav() {
             <span className="absolute -right-1 -top-1 h-2.5 w-2.5 rounded-full border border-white bg-red-600"></span>
           </button>
           <div className="h-8 w-px bg-gray-200"></div>
-          <div className="flex items-center gap-2">
-            <img
-              className="h-9 w-9 rounded-full border border-gray-200 object-cover"
-              src={profileImage}
-              alt="profile-image"
-            />
-            <span className="text-sm font-medium text-gray-800">David</span>
-          </div>
+          {isAuthenticated ? (
+            <ProfileBar />
+          ) : (
+            <div className="flex items-center gap-x-3">
+              <Link
+                to="/login"
+                className="rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white hover:bg-indigo-700"
+              >
+                Login
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-md border border-indigo-600 px-4 py-2 text-sm font-medium text-indigo-600 hover:bg-indigo-50"
+              >
+                Register
+              </Link>
+            </div>
+          )}
         </div>
       </header>
     </nav>

@@ -7,6 +7,7 @@ import {
   TriangleAlert,
   ArrowRight,
 } from "lucide-react";
+import { cn } from "../lib/utils";
 
 const taskCards = [
   {
@@ -15,10 +16,10 @@ const taskCards = [
     subtitle: "+4 this week",
     description: "All active & logged items",
     icon: Layers,
-    color: "#3730A3",
-    bgcolor: "#EEF0FF",
+    color: "text-[#3730A3]",
+    bgcolor: "bg-[#EEF0FF]",
     progress: "100%",
-    barColor: "#3730A3",
+    barColor: "bg-[#3730A3]",
   },
 
   {
@@ -27,10 +28,10 @@ const taskCards = [
     subtitle: "50% completed",
     description: "On schedule for target",
     icon: CircleCheck,
-    color: "#166B50",
-    bgcolor: "#E6FAF1",
+    color: "text-[#166B50]",
+    bgcolor: "bg-[#E6FAF1]",
     progress: "50%",
-    barColor: "#16845C",
+    barColor: "bg-[#16845C]",
   },
 
   {
@@ -39,10 +40,10 @@ const taskCards = [
     subtitle: "In progress",
     description: "Active workflows",
     icon: Hourglass,
-    color: "#A45B08",
-    bgcolor: "#FFF3D6",
+    color: "text-[#A45B08]",
+    bgcolor: "bg-[#FFF3D6]",
     progress: "33%",
-    barColor: "#B45309",
+    barColor: "bg-[#B45309]",
   },
 
   {
@@ -51,10 +52,10 @@ const taskCards = [
     subtitle: "Requires attention",
     description: "Requires re-prioritization",
     icon: TriangleAlert,
-    color: "#B91C1C",
-    bgcolor: "#FDE8E8",
+    color: "text-[#B91C1C]",
+    bgcolor: "bg-[#FDE8E8]",
     progress: "16%",
-    barColor: "#B91C1C",
+    barColor: "bg-[#B91C1C]",
   },
 ];
 
@@ -62,31 +63,35 @@ function StatisticsCard({ card }) {
   const Icon = card.icon;
 
   return (
-    <div className="relative min-h-[190px] overflow-hidden rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-shadow duration-300 hover:shadow-md">
-      <div className="mb-5 flex items-center justify-between">
+    <div className="relative min-h-35 overflow-hidden rounded-2xl border border-gray-100 bg-white p-3 shadow-sm transition-shadow duration-300 hover:shadow-md">
+      <div className="mb-3 flex items-center justify-between">
         <h3 className="text-sm font-semibold text-gray-600">{card.title}</h3>
 
         <div
-          className="flex h-12 w-12 items-center justify-center rounded-full"
+          className="flex size-8 items-center justify-center rounded-full"
           style={{ backgroundColor: card.bgcolor }}
         >
-          <Icon size={23} strokeWidth={2.2} style={{ color: card.color }} />
+          <Icon size={16} strokeWidth={2.2} style={{ color: card.color }} />
         </div>
       </div>
 
       <div className="flex items-center gap-3">
         <h2
-          className="text-4xl font-bold"
-          style={{
-            color: card.title === "OVERDUE" ? "#B91C1C" : "#111827",
-          }}
+          className={cn(
+            "text-3xl font-bold text-[#111827]",
+            card.title === "OVERDUE" && "text-[#B91C1C]",
+          )}
         >
           {card.count}
         </h2>
 
         <span
-          className="rounded-full px-3 py-1 text-xs font-semibold"
-          style={{ backgroundColor: card.bgcolor, color: card.color }}
+          className={cn(
+            "rounded-full px-3 py-1 text-xs font-semibold bg-blue",
+            card.bgcolor,
+            card.color,
+          )}
+          // style={{ backgroundColor: card.bgcolor, color: card.color }}
         >
           {card.subtitle}
         </span>
@@ -96,10 +101,10 @@ function StatisticsCard({ card }) {
 
       <div className="absolute bottom-0 left-0 h-1.5 w-full bg-gray-100">
         <div
-          className="h-full rounded-r-full"
+          className={cn("h-full rounded-r-full", card.barColor)}
           style={{
             width: card.progress,
-            backgroundColor: card.barColor,
+            // backgroundColor: card.barColor,
           }}
         ></div>
       </div>
@@ -144,7 +149,7 @@ function TaskCard() {
           ))}
         </div>
 
-        <div className="mt-7 flex items-center justify-between bg-white px-5 py-6 rounded-2xl shadow-sm w-full">
+        <div className="mt-7 flex items-center justify-between bg-white p-4 rounded-xl shadow-sm w-full">
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-semibold text-gray-900">My Tasks</h2>
             <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600">

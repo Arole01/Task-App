@@ -9,27 +9,27 @@ import { useState } from "react";
 import profileImage from "../assets/profile-image.jpeg";
 import taskFLowLogo from "../assets/task-logo.jpg";
 
+const menuItems = [
+  {
+    name: "Dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    name: "All Tasks",
+    icon: ListTodo,
+  },
+  {
+    name: "Add New Task",
+    icon: CirclePlus,
+  },
+  {
+    name: "Completed Tasks",
+    icon: CircleCheck,
+  },
+];
 function SideBar() {
   const [activeMenu, setActiveMenu] = useState("Dashboard");
 
-  const menuItems = [
-    {
-      name: "Dashboard",
-      icon: LayoutDashboard,
-    },
-    {
-      name: "All Tasks",
-      icon: ListTodo,
-    },
-    {
-      name: "Add New Task",
-      icon: CirclePlus,
-    },
-    {
-      name: "Completed Tasks",
-      icon: CircleCheck,
-    },
-  ];
   return (
     <section className="sticky top-0 flex h-screen w-[280px] shrink-0 flex-col border-r border-gray-100 bg-white px-3 py-5">
       <div className="mb-10 flex items-center justify-between px-2">

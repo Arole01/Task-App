@@ -79,7 +79,7 @@ function TaskItem({ task, onToggle }) {
         </span>
 
         {task.completed && (
-          <span className="flex items-center gap-2 text-sm font-semibold texxt-emerald-700">
+          <span className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
             <StatusIcon size={19} />
             Completed
           </span>

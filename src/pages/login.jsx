@@ -1,23 +1,60 @@
-import Btn from "./ui/btn";
-import { useNavigate } from "react-router-dom";
+import Btn from "../ui/btn";
+import { Link, useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { loginSchema } from "../lib/authSchema";
 
 function Login({ setAuthenticated }) {
   const navigate = useNavigate();
-  const handleLogin = (e) => {
-    e.preventDefault();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(loginSchema),
+  });
+
+  const handleLogin = (data) => {
+    console.log(data);
 
     setAuthenticated(true);
     navigate("/");
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <input type="email" placeholder="Enter your email" />
+    <>
+      <form onSubmit={handleSubmit(handleLogin)}>
+        <div>
+          <input
+            type="email"
+            placeholder="Enter your email"
+            {...register("email")}
+          />
+          {errors.email && <p>{errors.email.message}</p>}
+        </div>
 
-      <input type="password" placeholder="Enter your password" />
+        <div>
+          <input
+            type="password"
+            placeholder="Enter your password"
+            {...register("password")}
+          />
+          {errors.password && <p>{errors.password.message}</p>}
+        </div>
 
-      <Btn label="Register" btnSize="sm" btnStyle="secondary" />
-    </form>
+        <Btn label="Login" btnSize="sm" btnStyle="primary" />
+      </form>
+      <div>
+        <p>
+          New user?👇
+          <Link to="/signup">
+            {" "}
+            <Btn label="Register" btnSize="sm" btnStyle="secondary" />
+          </Link>
+        </p>
+      </div>
+    </>
   );
 }
 

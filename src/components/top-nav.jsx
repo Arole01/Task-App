@@ -2,7 +2,7 @@
 import profileImage from "../assets/profile-image.jpeg";
 import { Bell, Search } from "lucide-react";
 // import Btn from "./ui/btn";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 
 const ProfileBar = () => {
   return (

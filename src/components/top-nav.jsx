@@ -4,20 +4,26 @@ import { Bell, Search } from "lucide-react";
 // import Btn from "./ui/btn";
 import { Link } from "react-router";
 
-const ProfileBar = () => {
+const ProfileBar = ({ currentUser }) => {
   return (
     <div className="flex items-center gap-2">
       <img
         className="h-9 w-9 rounded-full border border-gray-200 object-cover"
-        src={profileImage}
+        src={currentUser.profileImage || profileImage}
         alt="profile-image"
       />
-      <span className="text-sm font-medium text-gray-800">David</span>
+      <div>
+        <p className="text-sm font-medium text-gray-800">
+          {currentUser.firstname}
+        </p>
+        <p className="text-xs text-gray-500">{currentUser.email}</p>
+      </div>
     </div>
   );
 };
 
-function TopNav({ isAuthenticated }) {
+function TopNav({ currentUser }) {
+  const isAuthenticated = !!currentUser;
   // const [isAuthenticated, setAuthenticated] = useState(false);
 
   return (
@@ -43,7 +49,7 @@ function TopNav({ isAuthenticated }) {
           </button>
           <div className="h-8 w-px bg-gray-200"></div>
           {isAuthenticated ? (
-            <ProfileBar />
+            <ProfileBar currentUser={currentUser} />
           ) : (
             <div className="flex items-center gap-x-3">
               <Link

@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../lib/authSchema";
 import Btn from "../ui/btn";
+import { toast } from "sonner";
 
 function Register() {
   const {
@@ -12,7 +13,26 @@ function Register() {
   } = useForm({ resolver: yupResolver(registerSchema) });
 
   const handleRegister = (data) => {
-    console.log(data);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const userExists = users.find(
+      (user) => user.email === data.email.toLowerCase(),
+    );
+
+    if (userExists) {
+      toast.error("This email is already registered");
+      return;
+    }
+    const newUser = {
+      firstname: data.firstname,
+      lastname: data.lastname,
+      email: data.email.toLowerCase(),
+      password: data.password,
+    };
+    users.push(newUser);
+
+    localStorage.setItem("users", JSON.stringify(users));
+
+    toast.success("Registration successful");
   };
 
   return (
@@ -96,7 +116,12 @@ function Register() {
             </p>
           </div>
 
-          <Btn label="Create Account" btnSize="sm" btnStyle="secondary" />
+          <Btn
+            type="submit"
+            label="Create Account"
+            btnSize="sm"
+            btnStyle="secondary"
+          />
         </form>
 
         <p className="mt-6 text-center text-sm text-gray-600">

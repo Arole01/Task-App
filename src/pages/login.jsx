@@ -4,8 +4,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../lib/authSchema";
 import { ArrowRight, LockKeyhole, Mail } from "lucide-react";
+import { toast } from "sonner";
 
-function Login({ setAuthenticated }) {
+function Login({ setCurrentUser }) {
   const navigate = useNavigate();
 
   const {
@@ -17,9 +18,21 @@ function Login({ setAuthenticated }) {
   });
 
   const handleLogin = (data) => {
-    console.log(data);
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    const user = users.find((user) => user.email === data.email.toLowerCase());
 
-    setAuthenticated(true);
+    if (!user) {
+      toast.error("You are not registered. Please create an account.");
+      return;
+    }
+
+    if (user.password !== data.password) {
+      toast.error("Incorrect password!");
+      return;
+    }
+
+    setCurrentUser(user);
+    toast.success("Login successful");
     navigate("/");
   };
 
@@ -89,6 +102,7 @@ function Login({ setAuthenticated }) {
             </div>
 
             <Btn
+              type="submit"
               label="Login"
               btnSize="sm"
               btnStyle="primary"

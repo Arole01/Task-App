@@ -7,6 +7,7 @@ const Btn = ({
   btnStyle = "primary",
   iconLeft,
   iconRight,
+  type = "button",
 }) => {
   const sizes = {
     default: "py-2 px-1 rounded-sm",
@@ -20,7 +21,7 @@ const Btn = ({
 
   return (
     <button
-      type="button"
+      type={type}
       className={cn(sizes[btnSize], className, style[btnStyle])}
     >
       {iconLeft && iconLeft}

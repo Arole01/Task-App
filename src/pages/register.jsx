@@ -27,6 +27,7 @@ function Register() {
       lastname: data.lastname,
       email: data.email.toLowerCase(),
       password: data.password,
+      occupation: data.occupation,
     };
     users.push(newUser);
 
@@ -114,6 +115,25 @@ function Register() {
             <p className="mt-1 text-sm text-red-500">
               {errors.confirmPassword?.message}
             </p>
+          </div>
+
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Occupation
+            </label>
+
+            <input
+              type="text"
+              placeholder="Enter your occupation"
+              {...register("occupation")}
+              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+            />
+
+            {errors.occupation && (
+              <p className="mt-1 text-xs text-red-500">
+                {errors.occupation.message}
+              </p>
+            )}
           </div>
 
           <Btn

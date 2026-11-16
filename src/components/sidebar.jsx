@@ -5,7 +5,7 @@ import {
   ListTodo,
   LogOut,
 } from "lucide-react";
-import profileImage from "../assets/profile-image.jpeg";
+
 import taskFLowLogo from "../assets/task-logo.jpg";
 import { NavLink } from "react-router";
 
@@ -77,35 +77,29 @@ function SideBar({ currentUser, onLogout }) {
         })}
       </nav>
 
-      <div className="mt-auto">
-        <div className="flex items-center justify-between gap-2 rounded-xl bg-[#f0f3ff] p-3">
-          <div className="flex min-w-0 items-center gap-2">
-            <img
-              className="h-10 w-10 rounded-full  object-cover"
-              src={currentUser.profileImage || profileImage}
-              alt="profile-image"
-            />
-
+      {currentUser && (
+        <div className="mt-auto">
+          <div className="flex items-center justify-between gap-2 rounded-xl bg-[#f0f3ff] p-3">
             <div className="min-w-0">
               <h3 className=" truncate text-sm font-semibold text-gray-800">
                 {currentUser.firstname} {currentUser.lastname}
               </h3>
 
               <p className="truncate text-xs text-gray-600">
-                {currentUser.email}
+                {currentUser.occupation}
               </p>
             </div>
+            <button
+              type="button"
+              onClick={onLogout}
+              aria-label="Log out"
+              className="shrink-0 text-gray-700 transition hover:text-[#3216b5]"
+            >
+              <LogOut size={21} strokeWidth={2} />
+            </button>
           </div>
-          <button
-            type="button"
-            onClick={onLogout}
-            aria-label="Log out"
-            className="shrink-0 text-gray-700 transition hover:text-[#3216b5]"
-          >
-            <LogOut size={21} strokeWidth={2} />
-          </button>
         </div>
-      </div>
+      )}
     </section>
   );
 }

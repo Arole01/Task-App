@@ -13,10 +13,10 @@ export const registerSchema = yup.object({
   password: yup
     .string()
     .min(8, "Password must be at least 8 characters")
-    .matches(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,10}$/,
-      "Password should contain Capital letter,small letter and a number",
-    )
+    // .matches(
+    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,10}$/,
+    //   "Password should contain Capital letter,small letter and a number",
+    // )
     .required("Password is required"),
 
   confirmPassword: yup
@@ -40,9 +40,9 @@ export const loginSchema = yup.object({
 
   password: yup
     .string()
-    .matches(
-      /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,10}$/,
-      "Password should contain Capital letter,small letter and a number",
-    )
+    // .matches(
+    //   /^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%?&])[A-Za-z\d@$!%?&]{8,10}$/,
+    //   "Password should contain Capital letter,small letter and a number",
+    // )
     .required("Password is required"),
 });

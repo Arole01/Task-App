@@ -3,7 +3,6 @@ import { useNavigate } from "react-router";
 import { Info, CircleCheck } from "lucide-react";
 import { toast } from "sonner";
 import { priorityStyles } from "../data/tasks";
-import Btn from "../ui/btn";
 
 function AddTask({ currentUser }) {
   const navigate = useNavigate();
@@ -34,6 +33,11 @@ function AddTask({ currentUser }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!currentUser) {
+      toast.error("You must login to add task");
+      return;
+    }
 
     const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
@@ -140,46 +144,50 @@ function AddTask({ currentUser }) {
                 </select>
               </div>
 
-              <label className="mb-2 block text-sm font-semibold text-gray-800">
-                Priority Level <span className="text-red-500">*</span>
-              </label>
+              <div>
+                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                  Priority Level <span className="text-red-500">*</span>
+                </label>
 
-              <div className="grid grid-cols-3 gap-2">
-                {Object.keys(priorityStyles).map((level) => {
-                  const style = priorityStyles[level];
+                <div className="grid grid-cols-3 gap-2">
+                  {Object.keys(priorityStyles).map((level) => {
+                    const style = priorityStyles[level];
 
-                  return (
-                    <button
-                      key={level}
-                      type="button"
-                      onClick={() =>
-                        setTaskData({
-                          ...taskData,
-                          priority: level,
-                        })
-                      }
-                      style={{
-                        color: style.color,
-                        backgroundColor:
-                          taskData.priority === level
-                            ? style.background
-                            : "white",
-                        borderColor:
-                          taskData.priority === level ? style.color : "#d1d5db",
-                      }}
-                      className="flex items-center justify-center gap-2 rounded-lg border px-2 py-3 text-xs font-semibold transition sm:text-sm"
-                    >
-                      <span
-                        className="h-2.5 w-2.5 rounded-full"
+                    return (
+                      <button
+                        key={level}
+                        type="button"
+                        onClick={() =>
+                          setTaskData({
+                            ...taskData,
+                            priority: level,
+                          })
+                        }
                         style={{
-                          backgroundColor: style.indicator,
+                          color: style.color,
+                          backgroundColor:
+                            taskData.priority === level
+                              ? style.background
+                              : "white",
+                          borderColor:
+                            taskData.priority === level
+                              ? style.color
+                              : "#d1d5db",
                         }}
-                      ></span>
+                        className="flex items-center justify-center gap-2 rounded-lg border px-2 py-3 text-xs font-semibold transition sm:text-sm"
+                      >
+                        <span
+                          className="h-2.5 w-2.5 rounded-full"
+                          style={{
+                            backgroundColor: style.indicator,
+                          }}
+                        ></span>
 
-                      {level}
-                    </button>
-                  );
-                })}
+                        {level}
+                      </button>
+                    );
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -228,25 +236,10 @@ function AddTask({ currentUser }) {
               Cancel
             </button>
 
-            {/* <Btn
-              type="button"
-              label="Cancel"
-              btnSize="sm"
-              onClick={() => navigate("/")}
-              btnStyle="primary"
-              className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-indigo-50"
-            /> */}
             <button
               type="submit"
               className="flex items-center justify-center gap-2 rounded-lg bg-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-800"
             >
-              {/* <Btn
-              type="submit"
-              label="Create Task"
-              btnSize="sm"
-              btnStyle="secondary"
-              className="flex items-center justify-center gap-2 rounded-lg bg-indigo-700 px-6 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-indigo-800"
-            /> */}
               <CircleCheck size={19} />
               Create Task
             </button>

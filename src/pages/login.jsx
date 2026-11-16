@@ -5,8 +5,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { loginSchema } from "../lib/authSchema";
 import { ArrowRight, LockKeyhole, Mail } from "lucide-react";
 import { toast } from "sonner";
+import { useState } from "react";
 
 function Login({ setCurrentUser }) {
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const {
@@ -46,7 +48,7 @@ function Login({ setCurrentUser }) {
             </div>
 
             <h1 className="text-2xl font-bold tracking-tight text-gray-900">
-              Welcome Back!
+              Welcome!
             </h1>
 
             <p className="mt-2 text-sm text-gray-500">
@@ -86,18 +88,35 @@ function Login({ setCurrentUser }) {
               <div className="relative">
                 <LockKeyhole className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   className={`w-full rounded-lg border bg-gray-50 pl-12 py-3 pr-4 text-sm  outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 ${
                     errors.password ? "border-red-400" : "border-gray-200"
                   }`}
                   {...register("password")}
                 />
-                {errors.password && (
-                  <p className="mt-1.5 text-xs text-red-500">
-                    {errors.password.message}
-                  </p>
-                )}
+              </div>
+              {errors.password && (
+                <p className="mt-1.5 text-xs text-red-500">
+                  {errors.password.message}
+                </p>
+              )}
+
+              <div className="mt-2 flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  id="showPassword"
+                  checked={showPassword}
+                  onChange={(e) => setShowPassword(e.target.checked)}
+                  className="h-4 w-4 cursor-pointer accent-indigo-600"
+                />
+
+                <label
+                  htmlFor="showPassword"
+                  className="cursor-pointer text-sm text-gray-600"
+                >
+                  Show password
+                </label>
               </div>
             </div>
 

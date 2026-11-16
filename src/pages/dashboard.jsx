@@ -1,9 +1,7 @@
-// import SideBar from "../components/sidebar";
-// import TopNav from "../components/top-nav";
 import TaskCard from "../components/taskCard";
 import TaskList from "../components/tasklist";
-import ProductivityProgress from "../components/productivityProgress";
-function Dashboard(currentUser) {
+
+function Dashboard({ currentUser }) {
   return (
     <>
       <main className="flex min-w-0 flex-1 flex-col">
@@ -15,7 +13,6 @@ function Dashboard(currentUser) {
           )}
           <TaskCard />
           <TaskList />
-          <ProductivityProgress />
         </section>
       </main>
     </>

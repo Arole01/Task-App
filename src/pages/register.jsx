@@ -1,16 +1,21 @@
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../lib/authSchema";
 import Btn from "../ui/btn";
 import { toast } from "sonner";
+import { useState } from "react";
 
 function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(registerSchema) });
+
+  const navigate = useNavigate();
 
   const handleRegister = (data) => {
     const users = JSON.parse(localStorage.getItem("users")) || [];
@@ -25,7 +30,7 @@ function Register() {
     const newUser = {
       firstname: data.firstname,
       lastname: data.lastname,
-      email: data.email.toLowerCase(),
+      email: data.email.trim().toLowerCase(),
       password: data.password,
       occupation: data.occupation,
     };
@@ -33,7 +38,9 @@ function Register() {
 
     localStorage.setItem("users", JSON.stringify(users));
 
-    toast.success("Registration successful");
+    toast.success("Account created successfully!");
+
+    navigate("/login");
   };
 
   return (
@@ -90,7 +97,7 @@ function Register() {
           <div>
             <label className="mb-2 block text-sm font-medium">Password</label>
             <input
-              type="password"
+              type={showPassword ? "text" : "password"}
               placeholder="Create a password"
               {...register("password")}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600"
@@ -99,6 +106,22 @@ function Register() {
             <p className="mt-1 text-sm text-red-500">
               {errors.password?.message}
             </p>
+
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="showPassword"
+                checked={showPassword}
+                onChange={(e) => setShowPassword(e.target.checked)}
+                className="h-4 w-4 cursor-pointer accent-indigo-600"
+              />
+              <label
+                htmlFor="showPassword"
+                className="cursor-pointer text-sm text-gray-600"
+              >
+                Show password
+              </label>
+            </div>
           </div>
 
           <div>
@@ -106,7 +129,7 @@ function Register() {
               Confirm Password
             </label>
             <input
-              type="text"
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Enter your full name"
               {...register("confirmPassword")}
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-indigo-600"
@@ -115,6 +138,22 @@ function Register() {
             <p className="mt-1 text-sm text-red-500">
               {errors.confirmPassword?.message}
             </p>
+
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                type="checkbox"
+                id="showConfirmPassword"
+                checked={showConfirmPassword}
+                onChange={(e) => setShowConfirmPassword(e.target.checked)}
+                className="h-4 w-4 cursor-pointer accent-indigo-600"
+              />
+              <label
+                htmlFor="showConfirmPassword"
+                className="cursor-pointer text-sm text-gray-600"
+              >
+                Show confirm password
+              </label>
+            </div>
           </div>
 
           <div>

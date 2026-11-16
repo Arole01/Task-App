@@ -6,6 +6,7 @@ import Register from "./pages/register";
 import Dashboard from "./pages/dashboard";
 import Sidebar from "./components/sidebar";
 import { Toaster } from "sonner";
+import AddTask from "./pages/add-task";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {
@@ -55,6 +56,10 @@ function App() {
                 element={<Login setCurrentUser={handleLogin} />}
               />
               <Route path="/register" element={<Register />} />
+              <Route
+                path="/addtask"
+                element={<AddTask currentUser={currentUser} />}
+              />
             </Routes>
           </main>
         </div>

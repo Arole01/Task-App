@@ -5,7 +5,6 @@ function UpcomingTasks({ tasks }) {
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Get pending tasks with today's or future due dates
   const upcomingTasks = tasks
     .filter((task) => {
       if (task.completed || !task.date) return false;
@@ -28,19 +27,21 @@ function UpcomingTasks({ tasks }) {
   };
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6">
+    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-6">
       <div className="mb-5 flex items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-gray-900">Upcoming Tasks</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+            Upcoming Tasks
+          </h2>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Stay on top of what's coming next.
           </p>
         </div>
 
         <Link
           to="/tasks"
-          className="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-800"
+          className="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
         >
           View All
           <ArrowRight size={16} />
@@ -48,7 +49,7 @@ function UpcomingTasks({ tasks }) {
       </div>
 
       {upcomingTasks.length > 0 ? (
-        <div className="divide-y divide-gray-100">
+        <div className="divide-y divide-gray-100 dark:divide-gray-700">
           {upcomingTasks.map((task) => (
             <div
               key={task.id}
@@ -58,17 +59,18 @@ function UpcomingTasks({ tasks }) {
                 <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-indigo-600" />
 
                 <div className="min-w-0">
-                  <h3 className="truncate text-sm font-semibold text-gray-800">
+                  <h3 className="truncate text-sm font-semibold text-gray-800 dark:text-gray-200">
                     {task.title}
                   </h3>
 
-                  <p className="mt-1 text-xs text-gray-500">{task.category}</p>
+                  <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+                    {task.category}
+                  </p>
                 </div>
               </div>
 
-              <div className="flex shrink-0 items-center gap-1.5 text-xs font-medium text-gray-500">
+              <div className="flex shrink-0 items-center gap-1.5 text-xs font-medium text-gray-500 dark:text-gray-400">
                 <CalendarDays size={15} />
-
                 {formatDate(task.date)}
               </div>
             </div>
@@ -76,13 +78,18 @@ function UpcomingTasks({ tasks }) {
         </div>
       ) : (
         <div className="py-8 text-center">
-          <CalendarDays size={30} className="mx-auto mb-3 text-gray-300" />
+          <CalendarDays
+            size={30}
+            className="mx-auto mb-3 text-gray-300 dark:text-gray-600"
+          />
 
-          <p className="text-sm font-semibold text-gray-700">
+          <p className="text-sm font-semibold text-gray-700 dark:text-gray-200">
             No upcoming tasks
           </p>
 
-          <p className="mt-1 text-xs text-gray-500">You're all caught up!</p>
+          <p className="mt-1 text-xs text-gray-500 dark:text-gray-400">
+            You're all caught up!
+          </p>
 
           <Link
             to="/addtask"

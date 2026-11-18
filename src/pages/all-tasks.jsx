@@ -214,68 +214,73 @@ function AllTasks({ tasks, setTasks }) {
   };
 
   return (
-    <section className="min-h-screen px-4 py-8 sm:px-6 lg:px-8">
+    <section className="min-h-screen bg-[#f7f8fc] px-4 py-8 transition-colors duration-300 dark:bg-gray-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-        {/* Page heading */}
         <div className="mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+          <h1 className="text-2xl font-bold text-gray-900 dark:text-white sm:text-3xl">
             All Tasks
           </h1>
 
-          <p className="mt-2 text-sm text-gray-500 sm:text-base">
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 sm:text-base">
             Manage, track and organise all your tasks in one place.
           </p>
         </div>
 
-        {/* Summary cards */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
-          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-500">Total Tasks</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Total Tasks
+              </p>
               <CalendarDays className="text-indigo-600" size={22} />
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold text-gray-900">
+            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">
               {totalTasks}
             </h2>
           </div>
 
-          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-500">Completed</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Completed
+              </p>
               <CheckCircle2 className="text-emerald-600" size={22} />
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold text-gray-900">
+            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">
               {completedTasks}
             </h2>
           </div>
 
-          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-500">Pending</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Pending
+              </p>
               <Clock className="text-amber-600" size={22} />
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold text-gray-900">
+            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">
               {pendingTasks}
             </h2>
           </div>
 
-          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm">
+          <div className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium text-gray-500">Overdue</p>
+              <p className="text-sm font-medium text-gray-500 dark:text-gray-400">
+                Overdue
+              </p>
               <AlertCircle className="text-red-600" size={22} />
             </div>
 
-            <h2 className="mt-3 text-3xl font-bold text-gray-900">
+            <h2 className="mt-3 text-3xl font-bold text-gray-900 dark:text-white">
               {overdueTasks}
             </h2>
           </div>
         </div>
 
-        {/* Task tabs */}
-        <div className="mb-6 flex flex-wrap gap-2 border-b border-gray-200">
+        <div className="mb-6 flex flex-wrap gap-2 border-b border-gray-200 dark:border-gray-700">
           {tabs.map((tab) => (
             <button
               key={tab.name}
@@ -284,18 +289,17 @@ function AllTasks({ tasks, setTasks }) {
               className={`border-b-2 px-4 py-3 text-sm font-semibold transition ${
                 activeTab === tab.name
                   ? "border-indigo-600 text-indigo-600"
-                  : "border-transparent text-gray-500 hover:text-gray-800"
+                  : "border-transparent text-gray-500 hover:text-gray-800 dark:text-gray-400 dark:hover:text-white"
               }`}
             >
               {tab.name}
-              <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600">
+              <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
                 {tab.count}
               </span>
             </button>
           ))}
         </div>
 
-        {/* Search and filters */}
         <div className="mb-6 grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-4">
           <div className="relative xl:col-span-1">
             <Search
@@ -308,14 +312,14 @@ function AllTasks({ tasks, setTasks }) {
               value={search}
               onChange={(e) => handleSearch(e.target.value)}
               placeholder="Search tasks..."
-              className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm outline-none focus:border-indigo-500"
+              className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
             />
           </div>
 
           <select
             value={priorityFilter}
             onChange={(e) => handlePriorityFilter(e.target.value)}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-indigo-500"
+            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           >
             <option value="All">All Priorities</option>
             <option value="High">High Priority</option>
@@ -326,7 +330,7 @@ function AllTasks({ tasks, setTasks }) {
           <select
             value={categoryFilter}
             onChange={(e) => handleCategoryFilter(e.target.value)}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-indigo-500"
+            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           >
             <option value="All">All Categories</option>
             <option value="Work">Work</option>
@@ -337,14 +341,13 @@ function AllTasks({ tasks, setTasks }) {
           <select
             value={sortOrder}
             onChange={(e) => setSortOrder(e.target.value)}
-            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm outline-none focus:border-indigo-500"
+            className="rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
           >
             <option value="earliest">Earliest Due Date</option>
             <option value="latest">Latest Due Date</option>
           </select>
         </div>
 
-        {/* Tasks list */}
         <div className="space-y-4">
           {displayedTasks.length > 0 ? (
             displayedTasks.map((task) => {
@@ -356,10 +359,9 @@ function AllTasks({ tasks, setTasks }) {
               return (
                 <div
                   key={task.id}
-                  className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition hover:shadow-md sm:p-6"
+                  className="rounded-xl border border-gray-100 bg-white p-5 shadow-sm transition hover:shadow-md dark:border-gray-700 dark:bg-gray-900 sm:p-6"
                 >
                   <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
-                    {/* Task information */}
                     <div className="flex min-w-0 flex-1 gap-4">
                       <button
                         type="button"
@@ -368,7 +370,7 @@ function AllTasks({ tasks, setTasks }) {
                         className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 ${
                           task.completed
                             ? "border-emerald-600 bg-emerald-600 text-white"
-                            : "border-gray-300 hover:border-indigo-600"
+                            : "border-gray-300 hover:border-indigo-600 dark:border-gray-600"
                         }`}
                       >
                         {task.completed && <CheckCircle2 size={17} />}
@@ -379,13 +381,13 @@ function AllTasks({ tasks, setTasks }) {
                           className={`break-words text-base font-semibold sm:text-lg ${
                             task.completed
                               ? "text-gray-400 line-through"
-                              : "text-gray-900"
+                              : "text-gray-900 dark:text-white"
                           }`}
                         >
                           {task.title}
                         </h3>
 
-                        <p className="mt-1 break-words text-sm text-gray-500">
+                        <p className="mt-1 break-words text-sm text-gray-500 dark:text-gray-400">
                           {task.description || "No description provided"}
                         </p>
 
@@ -400,7 +402,7 @@ function AllTasks({ tasks, setTasks }) {
                             {task.priority}
                           </span>
 
-                          <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700">
+                          <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
                             {task.category || "Uncategorised"}
                           </span>
 
@@ -408,7 +410,7 @@ function AllTasks({ tasks, setTasks }) {
                             className={`flex items-center gap-1.5 text-xs ${
                               overdue
                                 ? "font-semibold text-red-600"
-                                : "text-gray-500"
+                                : "text-gray-500 dark:text-gray-400"
                             }`}
                           >
                             <CalendarDays size={15} />
@@ -429,13 +431,12 @@ function AllTasks({ tasks, setTasks }) {
                       </div>
                     </div>
 
-                    {/* Action buttons */}
                     <div className="flex shrink-0 items-center gap-2 sm:justify-end">
                       <button
                         type="button"
                         onClick={() => setSelectedTask(task)}
                         title="View task"
-                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600"
+                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         <Eye size={18} />
                       </button>
@@ -444,7 +445,7 @@ function AllTasks({ tasks, setTasks }) {
                         type="button"
                         onClick={() => setEditingTask({ ...task })}
                         title="Edit task"
-                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600"
+                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         <Pencil size={18} />
                       </button>
@@ -453,7 +454,7 @@ function AllTasks({ tasks, setTasks }) {
                         type="button"
                         onClick={() => deleteTask(task.id)}
                         title="Delete task"
-                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-red-50 hover:text-red-600"
+                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -463,24 +464,23 @@ function AllTasks({ tasks, setTasks }) {
               );
             })
           ) : (
-            <div className="rounded-xl border border-gray-100 bg-white px-5 py-16 text-center shadow-sm">
+            <div className="rounded-xl border border-gray-100 bg-white px-5 py-16 text-center shadow-sm dark:border-gray-700 dark:bg-gray-900">
               <CheckCircle2 size={40} className="mx-auto text-gray-300" />
 
-              <h3 className="mt-4 text-lg font-semibold text-gray-800">
+              <h3 className="mt-4 text-lg font-semibold text-gray-800 dark:text-white">
                 No tasks found
               </h3>
 
-              <p className="mt-1 text-sm text-gray-500">
+              <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
                 Try changing your search or filters.
               </p>
             </div>
           )}
         </div>
 
-        {/* Pagination */}
         {totalPages > 1 && (
           <div className="mt-6 flex flex-wrap items-center justify-between gap-4">
-            <p className="text-sm text-gray-500">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               Showing {startIndex + 1} to{" "}
               {Math.min(startIndex + tasksPerPage, filteredTasks.length)} of{" "}
               {filteredTasks.length} tasks
@@ -491,12 +491,12 @@ function AllTasks({ tasks, setTasks }) {
                 type="button"
                 disabled={currentPage === 1}
                 onClick={() => setCurrentPage((page) => page - 1)}
-                className="rounded-lg border border-gray-200 p-2 text-gray-600 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-lg border border-gray-200 p-2 text-gray-600 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 <ChevronLeft size={18} />
               </button>
 
-              <span className="text-sm font-medium text-gray-700">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
                 Page {currentPage} of {totalPages}
               </span>
 
@@ -504,7 +504,7 @@ function AllTasks({ tasks, setTasks }) {
                 type="button"
                 disabled={currentPage === totalPages}
                 onClick={() => setCurrentPage((page) => page + 1)}
-                className="rounded-lg border border-gray-200 p-2 text-gray-600 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40"
+                className="rounded-lg border border-gray-200 p-2 text-gray-600 hover:bg-white disabled:cursor-not-allowed disabled:opacity-40 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 <ChevronRight size={18} />
               </button>
@@ -513,10 +513,9 @@ function AllTasks({ tasks, setTasks }) {
         )}
       </div>
 
-      {/* VIEW TASK MODAL */}
       {selectedTask && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
-          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl">
+          <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-900">
             <div className="mb-5 flex items-center justify-between">
               <h2 className="text-xl font-bold text-gray-900">Task Details</h2>
 
@@ -570,15 +569,16 @@ function AllTasks({ tasks, setTasks }) {
         </div>
       )}
 
-      {/* EDIT TASK MODAL */}
       {editingTask && (
         <div className="fixed inset-0 z-50 flex items-center justify-center overflow-y-auto bg-black/40 p-4">
           <form
             onSubmit={saveEditedTask}
-            className="my-8 w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl"
+            className="my-8 w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-900"
           >
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Edit Task</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Edit Task
+              </h2>
 
               <button
                 type="button"
@@ -590,8 +590,8 @@ function AllTasks({ tasks, setTasks }) {
             </div>
 
             <div className="space-y-4">
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+              <div className="text-lg font-semibold text-gray-900 dark:text-white">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Task Title
                 </label>
 
@@ -604,13 +604,13 @@ function AllTasks({ tasks, setTasks }) {
                       title: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
                   required
                 />
               </div>
 
-              <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+              <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Description
                 </label>
 
@@ -623,12 +623,12 @@ function AllTasks({ tasks, setTasks }) {
                       description: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-600 dark:bg-gray-800 dark:text-white"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Due Date
                 </label>
 
@@ -645,12 +645,12 @@ function AllTasks({ tasks, setTasks }) {
                       date: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
                 />
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Category
                 </label>
 
@@ -662,7 +662,7 @@ function AllTasks({ tasks, setTasks }) {
                       category: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-3 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 >
                   <option value="Work">Work</option>
                   <option value="Study">Study</option>
@@ -671,7 +671,7 @@ function AllTasks({ tasks, setTasks }) {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-medium text-gray-700">
+                <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Priority
                 </label>
 
@@ -696,7 +696,7 @@ function AllTasks({ tasks, setTasks }) {
               <button
                 type="button"
                 onClick={() => setEditingTask(null)}
-                className="flex-1 rounded-lg border border-gray-200 px-4 py-3 font-semibold text-gray-700 hover:bg-gray-50"
+                className="flex-1 rounded-lg border border-gray-200 px-4 py-3 font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-600 dark:text-gray-300 dark:hover:bg-gray-800"
               >
                 Cancel
               </button>

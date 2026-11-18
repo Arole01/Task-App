@@ -27,6 +27,19 @@ function App() {
     localStorage.setItem("tasks", JSON.stringify(tasks));
   }, [tasks]);
 
+  const [theme, setTheme] = useState(() => {
+    return localStorage.getItem("theme") || "light";
+  });
+
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+  }, [theme]);
+
+  // Switch between light and dark mode
+  const handleToggleTheme = () => {
+    setTheme((previousTheme) => (previousTheme === "light" ? "dark" : "light"));
+  };
+
   const isAuthenticated = !!currentUser;
   const handleLogin = (user) => {
     localStorage.setItem("currentUser", JSON.stringify(user));
@@ -43,7 +56,9 @@ function App() {
   return (
     <>
       <Toaster position="top-right" richColors />
-      <div className="flex min-h-screen bg-[#f7f8fc]">
+      <div
+        className={`flex min-h-screen ${theme === "dark" ? "dark bg-gray-950" : "bg-[#f7f8fc]"}`}
+      >
         {showSidebar && (
           <section className="sticky top-0 h-screen shrink-0">
             <Sidebar currentUser={currentUser} onLogout={handleLogout} />
@@ -52,7 +67,13 @@ function App() {
 
         <div className="flex min-w-0 flex-1 flex-col">
           {showSidebar && (
-            <TopNav currentUser={currentUser} onLogout={handleLogout} />
+            <TopNav
+              currentUser={currentUser}
+              onLogout={handleLogout}
+              tasks={tasks}
+              theme={theme}
+              onToggleTheme={handleToggleTheme}
+            />
           )}
 
           <main className="flex-1 min-w-0">

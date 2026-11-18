@@ -52,7 +52,6 @@ function TopNav({ currentUser, onLogout, tasks = [], theme, onToggleTheme }) {
   return (
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white px-4 py-4 sm:px-6 lg:px-8 dark:border-gray-700 dark:bg-gray-900">
       <div className="flex items-center justify-between gap-4">
-        {/* Left Side - Date */}
         <div>
           <h2 className="text-base font-bold text-gray-800 sm:text-lg dark:text-white">
             {formattedDate}
@@ -63,9 +62,7 @@ function TopNav({ currentUser, onLogout, tasks = [], theme, onToggleTheme }) {
           </p>
         </div>
 
-        {/* Right Side - Actions */}
         <div className="flex items-center gap-2 sm:gap-4">
-          {/* Notification Dropdown */}
           <div className="relative">
             <button
               type="button"

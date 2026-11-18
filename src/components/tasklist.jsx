@@ -1,5 +1,3 @@
-// import { useState } from "react";
-// import { taskList } from "../data/tasks";
 import TaskItem from "../components/taskItem";
 import { Link } from "react-router";
 
@@ -23,15 +21,18 @@ function TaskList({ tasks, setTasks }) {
   return (
     <div className="space-y-3 px-4 sm:px-6">
       {recentTasks.length === 0 ? (
-        <div className="rounded-xl bg-white p-8 text-center shadow-sm">
-          <p className="font-medium text-gray-700">No tasks available yet.</p>
-          <p className="mt-2 text-sm text-gray-500">
+        <div className="rounded-xl bg-white p-8 text-center shadow-sm dark:bg-gray-900">
+          <p className="font-medium text-gray-700 dark:text-gray-200">
+            No tasks available yet.
+          </p>
+
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
             Create your first task to get started.
           </p>
 
           <Link
             to="/addtask"
-            className="mt-4 inline-block font-semibold text-indigo-600 hover:text-indigo-800"
+            className="mt-4 inline-block font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
           >
             Add a task
           </Link>

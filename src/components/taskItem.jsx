@@ -21,9 +21,9 @@ function TaskItem({ task, onToggle }) {
   };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-md sm:p-5">
+    <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-300 hover:shadow-md dark:border-gray-700 dark:bg-gray-900 sm:p-5">
       <div
-        className="absolute left-0 top-0 h-full w-1.5"
+        className="absolute top-0 left-0 h-full w-1.5"
         style={{ backgroundColor: priority.indicator }}
       />
 
@@ -35,7 +35,7 @@ function TaskItem({ task, onToggle }) {
             className={`mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-md border-2 ${
               task.completed
                 ? "border-emerald-600 bg-emerald-600 text-white"
-                : "border-gray-400 bg-white hover:border-indigo-600"
+                : "border-gray-400 bg-white hover:border-indigo-600 dark:border-gray-500 dark:bg-gray-800 dark:hover:border-indigo-400"
             }`}
           >
             {task.completed && <StatusIcon size={21} strokeWidth={2.5} />}
@@ -44,14 +44,16 @@ function TaskItem({ task, onToggle }) {
           <div className="min-w-0">
             <h3
               className={`text-lg font-semibold sm:text-xl ${
-                task.completed ? "text-gray-500 line-through" : "text-gray-900"
+                task.completed
+                  ? "text-gray-500 line-through dark:text-gray-500"
+                  : "text-gray-900 dark:text-white"
               }`}
             >
               {task.title}
             </h3>
 
             <p
-              className={`mt-1 text-sm text-gray-500 sm:text-base ${
+              className={`mt-1 text-sm text-gray-500 dark:text-gray-400 sm:text-base ${
                 task.completed ? "line-through" : ""
               }`}
             >
@@ -80,21 +82,19 @@ function TaskItem({ task, onToggle }) {
           className={`flex items-center gap-2 text-sm ${
             task.completed
               ? "text-gray-400 line-through"
-              : task.date.includes("Today")
-                ? "text-red-600"
-                : "text-gray-600"
+              : "text-gray-600 dark:text-gray-300"
           }`}
         >
           <DateIcon size={19} />
           <span>{formatDate(task.date)}</span>
         </div>
 
-        <span className="rounded-md bg-indigo-50 px-3 py-1.5 text-sm font-medium text-gray-700">
+        <span className="rounded-md bg-indigo-50 px-3 py-1.5 text-sm font-medium text-gray-700 dark:bg-indigo-950 dark:text-indigo-300">
           {task.category}
         </span>
 
         {task.completed && (
-          <span className="flex items-center gap-2 text-sm font-semibold text-emerald-700">
+          <span className="flex items-center gap-2 text-sm font-semibold text-emerald-700 dark:text-emerald-400">
             <StatusIcon size={19} />
             Completed
           </span>

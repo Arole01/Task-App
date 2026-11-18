@@ -60,7 +60,7 @@ function AddTask({ currentUser, setTasks }) {
     navigate("/");
   };
   return (
-    <main className="min-h-screen bg-[#f7f8fc] px-4 py-8 sm:px-6 lg:px-8">
+    <main className="min-h-screen bg-[#f7f8fc] px-4 py-8 transition-colors duration-300 dark:bg-gray-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <div className="mb-8">
           <p className="mb-2 flex items-center gap-2 text-xs font-bold uppercase tracking-wide text-indigo-700">
@@ -68,22 +68,22 @@ function AddTask({ currentUser, setTasks }) {
             New Workflow Item
           </p>
 
-          <h1 className="text-3xl font-bold tracing-tight text-gray-900">
+          <h1 className="text-3xl font-bold tracing-tight text-gray-900 dark:text-white">
             Create New Task
           </h1>
 
-          <p className="mt-2 text-sm text-gray-500 sm:text-base">
+          <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 sm:text-base">
             Add a new task and stay organised.
           </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
-          className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-8 lg:p-10"
+          className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm dark:border-gray-700 dark:bg-gray-900 sm:p-8 lg:p-10"
         >
           <div className="mb-7">
             <div className="mb-2 flex items-center justify-between">
-              <label className="text-sm font-semibold text-gray-800">
+              <label className="text-sm font-semibold text-gray-800 dark:text-gray-200">
                 Task Title <span className="text-red-500">*</span>
               </label>
 
@@ -99,7 +99,7 @@ function AddTask({ currentUser, setTasks }) {
               maxLength={80}
               required
               placeholder="e.g., Complete React Job Portal"
-              className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:ring-indigo-900"
             />
 
             <p className="mt-2 flex items-center gap-2 text-xs text-gray-500">
@@ -109,7 +109,7 @@ function AddTask({ currentUser, setTasks }) {
           </div>
 
           <div className="mb-8">
-            <label className="mb-2 block text-sm font-semibold text-gray-800">
+            <label className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200">
               Description
             </label>
 
@@ -119,12 +119,12 @@ function AddTask({ currentUser, setTasks }) {
               onChange={handleChange}
               rows={5}
               placeholder="Describe what needs to be accomplished, key acceptance criteria or notes..."
-              className="w-full resize-y rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+              className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:ring-indigo-900"
             />
 
             <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2">
               <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                <label className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200">
                   Category <span className="text-red-500">*</span>
                 </label>
 
@@ -132,7 +132,7 @@ function AddTask({ currentUser, setTasks }) {
                   name="category"
                   value={taskData.category}
                   onChange={handleChange}
-                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                  className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:ring-indigo-900"
                 >
                   <option value="Work">Work</option>
                   <option value="Personal">Personal</option>
@@ -143,7 +143,7 @@ function AddTask({ currentUser, setTasks }) {
               </div>
 
               <div>
-                <label className="mb-2 block text-sm font-semibold text-gray-800">
+                <label className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200">
                   Priority Level <span className="text-red-500">*</span>
                 </label>
 
@@ -166,13 +166,13 @@ function AddTask({ currentUser, setTasks }) {
                           backgroundColor:
                             taskData.priority === level
                               ? style.background
-                              : "white",
+                              : undefined,
                           borderColor:
                             taskData.priority === level
                               ? style.color
                               : "#d1d5db",
                         }}
-                        className="flex items-center justify-center gap-2 rounded-lg border px-2 py-3 text-xs font-semibold transition sm:text-sm"
+                        className="flex items-center justify-center gap-2 rounded-lg border bg-white px-2 py-3 text-xs font-semibold transition dark:bg-gray-800 sm:text-sm"
                       >
                         <span
                           className="h-2.5 w-2.5 rounded-full"
@@ -192,7 +192,7 @@ function AddTask({ currentUser, setTasks }) {
 
           <div className="mb-7 grid grid-cols-1 gap-6 md:grid-cols-2">
             <div>
-              <label className="mb-2 block text-sm font-semibold text-gray-800">
+              <label className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200">
                 Due Date <span className="text-red-500">*</span>
               </label>
 
@@ -203,22 +203,22 @@ function AddTask({ currentUser, setTasks }) {
                 onChange={handleChange}
                 min={formattedToday}
                 required
-                className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:ring-indigo-900"
               />
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold text-gray-800">
+              <label className="mb-2 block text-sm font-semibold text-gray-800 dark:text-gray-200">
                 Status
               </label>
 
-              <div className="flex items-center justify-between rounded-lg bg-indigo-50 px-4 py-4">
+              <div className="flex items-center justify-between rounded-lg bg-indigo-50 px-4 py-4 dark:bg-indigo-950">
                 <span className="flex items-center gap-2 text-sm font-medium text-indigo-700">
                   <span className="h-3 w-3 rounded-full bg-indigo-700"></span>
                   Pending
                 </span>
 
-                <span className="rounded-full bg-white px-3 py-1 text-xs text-gray-500">
+                <span className="rounded-full bg-white px-3 py-1 text-xs text-gray-500 dark:bg-gray-800 dark:text-gray-300">
                   Initial Default
                 </span>
               </div>
@@ -229,7 +229,7 @@ function AddTask({ currentUser, setTasks }) {
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50"
+              className="rounded-lg border border-gray-300 bg-white px-6 py-3 text-sm font-semibold text-gray-700 transition hover:bg-gray-50 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
             >
               Cancel
             </button>

@@ -10,7 +10,6 @@ import {
 } from "recharts";
 
 function TaskAnalytics({ tasks }) {
-  // Get the current week's Monday
   const today = new Date();
   const startOfWeek = new Date(today);
 
@@ -22,7 +21,6 @@ function TaskAnalytics({ tasks }) {
 
   startOfWeek.setHours(0, 0, 0, 0);
 
-  // Format date as YYYY-MM-DD
   const formatDateKey = (date) => {
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -31,7 +29,6 @@ function TaskAnalytics({ tasks }) {
     return `${year}-${month}-${day}`;
   };
 
-  // Prepare chart data
   const chartData = Array.from({ length: 7 }, (_, index) => {
     const date = new Date(startOfWeek);
 
@@ -54,7 +51,6 @@ function TaskAnalytics({ tasks }) {
     };
   });
 
-  // Calculate totals
   const completedTotal = chartData.reduce(
     (total, day) => total + day.completed,
     0,
@@ -63,42 +59,45 @@ function TaskAnalytics({ tasks }) {
   const pendingTotal = chartData.reduce((total, day) => total + day.pending, 0);
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm sm:p-6">
-      {/* Heading */}
+    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
         <div>
-          <h2 className="text-lg font-bold text-gray-900">Task Analytics</h2>
+          <h2 className="text-lg font-bold text-gray-900 dark:text-white">
+            Task Analytics
+          </h2>
 
-          <p className="mt-1 text-sm text-gray-500">
+          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
             Your task activity throughout this week.
           </p>
         </div>
 
-        <span className="rounded-lg bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700">
+        <span className="rounded-lg bg-indigo-50 px-3 py-2 text-xs font-semibold text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
           This Week
         </span>
       </div>
 
-      {/* Task Summary */}
       <div className="mb-6 grid grid-cols-2 gap-4">
-        <div className="rounded-xl bg-indigo-50 p-3">
-          <p className="text-xs font-medium text-indigo-600">Completed Tasks</p>
+        <div className="rounded-xl bg-indigo-50 p-3 dark:bg-indigo-950">
+          <p className="text-xs font-medium text-indigo-600 dark:text-indigo-300">
+            Completed Tasks
+          </p>
 
-          <p className="mt-1 text-2xl font-bold text-indigo-700">
+          <p className="mt-1 text-2xl font-bold text-indigo-700 dark:text-indigo-200">
             {completedTotal}
           </p>
         </div>
 
-        <div className="rounded-xl bg-gray-50 p-3">
-          <p className="text-xs font-medium text-gray-500">Pending Tasks</p>
+        <div className="rounded-xl bg-gray-50 p-3 dark:bg-gray-800">
+          <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
+            Pending Tasks
+          </p>
 
-          <p className="mt-1 text-2xl font-bold text-gray-800">
+          <p className="mt-1 text-2xl font-bold text-gray-800 dark:text-white">
             {pendingTotal}
           </p>
         </div>
       </div>
 
-      {/* Chart */}
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
@@ -113,7 +112,7 @@ function TaskAnalytics({ tasks }) {
             <CartesianGrid
               strokeDasharray="3 3"
               vertical={false}
-              stroke="#E5E7EB"
+              stroke="#4B5563"
             />
 
             <XAxis
@@ -131,12 +130,15 @@ function TaskAnalytics({ tasks }) {
             />
 
             <Tooltip
-              cursor={{ fill: "#F3F4F6" }}
+              cursor={{ fill: "rgba(156, 163, 175, 0.15)" }}
               contentStyle={{
+                backgroundColor: "#1F2937",
                 borderRadius: "12px",
-                border: "1px solid #E5E7EB",
+                border: "1px solid #4B5563",
+                color: "#F9FAFB",
                 fontSize: "12px",
               }}
+              labelStyle={{ color: "#F9FAFB" }}
             />
 
             <Legend
@@ -145,6 +147,7 @@ function TaskAnalytics({ tasks }) {
               wrapperStyle={{
                 fontSize: "12px",
                 paddingTop: "15px",
+                color: "#9CA3AF",
               }}
             />
 
@@ -160,7 +163,7 @@ function TaskAnalytics({ tasks }) {
               dataKey="pending"
               name="Pending"
               stackId="tasks"
-              fill="#D1D5DB"
+              fill="#9CA3AF"
               radius={[5, 5, 0, 0]}
             />
           </BarChart>

@@ -33,8 +33,8 @@ const motivationMessages = [
 ];
 
 function DailyMotivation() {
-  // Use the current day to select a motivational message
   const today = new Date();
+
   const dayNumber = Math.floor(
     new Date(today.getFullYear(), today.getMonth(), today.getDate()).getTime() /
       (1000 * 60 * 60 * 24),
@@ -62,8 +62,8 @@ function DailyMotivation() {
         <p className="mt-4 text-sm text-indigo-200">— {message.author}</p>
       </div>
 
-      <div className="pointer-events-none absolute -bottom-12 -right-8 h-40 w-40 rounded-full bg-white/10" />
-      <div className="pointer-events-none absolute -right-4 -top-12 h-32 w-32 rounded-full bg-white/5" />
+      <div className="pointer-events-none absolute -right-8 -bottom-12 h-40 w-40 rounded-full bg-white/10" />
+      <div className="pointer-events-none absolute -top-12 -right-4 h-32 w-32 rounded-full bg-white/5" />
     </section>
   );
 }

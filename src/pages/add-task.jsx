@@ -4,7 +4,7 @@ import { Info, CircleCheck } from "lucide-react";
 import { toast } from "sonner";
 import { priorityStyles } from "../data/tasks";
 
-function AddTask({ currentUser }) {
+function AddTask({ currentUser, setTasks }) {
   const navigate = useNavigate();
 
   const [taskData, setTaskData] = useState({
@@ -39,7 +39,7 @@ function AddTask({ currentUser }) {
       return;
     }
 
-    const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+    // const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     const newTask = {
       id: Date.now(),
@@ -50,14 +50,12 @@ function AddTask({ currentUser }) {
       priority: taskData.priority,
       completed: false,
       status: "Pending",
-      assignedTo: currentUser
-        ? `${currentUser.firstname} ${currentUser.lastname} ${currentUser.occupation}`
-        : "",
     };
 
-    tasks.push(newTask);
+    setTasks((previousTasks) => [...previousTasks, newTask]);
+    // tasks.push(newTask);
 
-    localStorage.setItem("tasks", JSON.stringify(tasks));
+    // localStorage.setItem("tasks", JSON.stringify(tasks));
     toast.success("Tasks created successully");
     navigate("/");
   };

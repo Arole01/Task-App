@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, useLocation } from "react-router";
 import TopNav from "./components/top-nav";
 import Login from "./pages/login";
@@ -7,12 +7,25 @@ import Dashboard from "./pages/dashboard";
 import Sidebar from "./components/sidebar";
 import { Toaster } from "sonner";
 import AddTask from "./pages/add-task";
+import { taskList } from "./data/tasks";
+import AllTasks from "./pages/all-tasks";
+import CompletedTasks from "./pages/completed-tasks";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(() => {
     const savedUser = localStorage.getItem("currentUser");
     return savedUser ? JSON.parse(savedUser) : null;
   });
+
+  const [tasks, setTasks] = useState(() => {
+    const savedTasks = localStorage.getItem("tasks");
+
+    return savedTasks ? JSON.parse(savedTasks) : taskList;
+  });
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const isAuthenticated = !!currentUser;
   const handleLogin = (user) => {
@@ -38,7 +51,9 @@ function App() {
         )}
 
         <div className="flex min-w-0 flex-1 flex-col">
-          <TopNav currentUser={currentUser} onLogout={handleLogout} />
+          {showSidebar && (
+            <TopNav currentUser={currentUser} onLogout={handleLogout} />
+          )}
 
           <main className="flex-1 min-w-0">
             <Routes>
@@ -48,6 +63,8 @@ function App() {
                   <Dashboard
                     isAuthenticated={isAuthenticated}
                     currentUser={currentUser}
+                    tasks={tasks}
+                    setTasks={setTasks}
                   />
                 }
               />
@@ -58,7 +75,18 @@ function App() {
               <Route path="/register" element={<Register />} />
               <Route
                 path="/addtask"
-                element={<AddTask currentUser={currentUser} />}
+                element={
+                  <AddTask currentUser={currentUser} setTasks={setTasks} />
+                }
+              />
+              <Route
+                path="/tasks"
+                element={<AllTasks tasks={tasks} setTasks={setTasks} />}
+              />
+
+              <Route
+                path="/completetask"
+                element={<CompletedTasks tasks={tasks} setTasks={setTasks} />}
               />
             </Routes>
           </main>

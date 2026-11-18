@@ -8,56 +8,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { cn } from "../lib/utils";
-
-const taskCards = [
-  {
-    title: "TOTAL TASKS",
-    count: 24,
-    subtitle: "+4 this week",
-    description: "All active & logged items",
-    icon: Layers,
-    color: "text-[#3730A3]",
-    bgcolor: "bg-[#EEF0FF]",
-    progress: "100%",
-    barColor: "bg-[#3730A3]",
-  },
-
-  {
-    title: "COMPLETED",
-    count: 12,
-    subtitle: "50% completed",
-    description: "On schedule for target",
-    icon: CircleCheck,
-    color: "text-[#166B50]",
-    bgcolor: "bg-[#E6FAF1]",
-    progress: "50%",
-    barColor: "bg-[#16845C]",
-  },
-
-  {
-    title: "PENDING",
-    count: 8,
-    subtitle: "In progress",
-    description: "Active workflows",
-    icon: Hourglass,
-    color: "text-[#A45B08]",
-    bgcolor: "bg-[#FFF3D6]",
-    progress: "33%",
-    barColor: "bg-[#B45309]",
-  },
-
-  {
-    title: "OVERDUE",
-    count: 4,
-    subtitle: "Requires attention",
-    description: "Requires re-prioritization",
-    icon: TriangleAlert,
-    color: "text-[#B91C1C]",
-    bgcolor: "bg-[#FDE8E8]",
-    progress: "16%",
-    barColor: "bg-[#B91C1C]",
-  },
-];
+import { Link } from "react-router";
 
 function StatisticsCard({ card }) {
   const Icon = card.icon;
@@ -112,7 +63,86 @@ function StatisticsCard({ card }) {
   );
 }
 
-function TaskCard() {
+function TaskCard({ tasks }) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const completedTasks = tasks.filter((task) => task.completed).length;
+
+  const pendingTasks = tasks.filter((task) => !task.completed).length;
+
+  const overdueTasks = tasks.filter((task) => {
+    if (task.completed || task.date) return false;
+
+    const [year, month, day] = task.date.split("-").map(Number);
+    const dueDate = new Date(year, month - 1, day);
+
+    return dueDate < today;
+  }).length;
+
+  const totalTasks = tasks.length;
+
+  const completedPercentage = totalTasks
+    ? Math.round((completedTasks / totalTasks) * 100)
+    : 0;
+
+  const pendingPercentage = totalTasks
+    ? Math.round((pendingTasks / totalTasks) * 100)
+    : 0;
+
+  const overduePercentage = totalTasks
+    ? Math.round((overdueTasks / totalTasks) * 100)
+    : 0;
+
+  const taskCards = [
+    {
+      title: "TOTAL TASKS",
+      count: totalTasks,
+      subtitle: "All tasks",
+      description: "All active & completed tasks",
+      icon: Layers,
+      color: "text-[#3730A3]",
+      bgcolor: "bg-[#EEF0FF]",
+      progress: totalTasks ? "100%" : "0%",
+      barColor: "bg-[#3730A3]",
+    },
+
+    {
+      title: "COMPLETED",
+      count: completedTasks,
+      subtitle: `${completedPercentage}% completed`,
+      description: "successfully completed tasks",
+      icon: CircleCheck,
+      color: "text-[#166B50]",
+      bgcolor: "bg-[#E6FAF1]",
+      progress: `${completedPercentage}`,
+      barColor: "bg-[#16845C]",
+    },
+
+    {
+      title: "PENDING",
+      count: pendingTasks,
+      subtitle: "Not completed",
+      description: "Tasks still to be completed",
+      icon: Hourglass,
+      color: "text-[#A45B08]",
+      bgcolor: "bg-[#FFF3D6]",
+      progress: `${pendingPercentage}%`,
+      barColor: "bg-[#B45309]",
+    },
+
+    {
+      title: "OVERDUE",
+      count: overdueTasks,
+      subtitle: "Requires attention",
+      description: "Uncompleted tasks past their due date",
+      icon: TriangleAlert,
+      color: "text-[#B91C1C]",
+      bgcolor: "bg-[#FDE8E8]",
+      progress: `${overduePercentage}%`,
+      barColor: "bg-[#B91C1C]",
+    },
+  ];
   return (
     <>
       <div className="w-full bg-[#f7f8fc] px-5 pt-0 pb-6 sm:px-8">
@@ -131,15 +161,22 @@ function TaskCard() {
             </p>
           </div>
           <div className="flex flex-wrap items-center gap-3">
-            <button className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50">
+            <div className="flex items-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50">
               <CalendarDays size={20} />
-              Today, Nov 16
-            </button>
+              {today.toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              })}
+            </div>
 
-            <button className="flex items-center gap-2 rounded-xl bg-[#3216b5] px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:bg-[#26109c]">
+            <Link
+              to="/addtask"
+              className="flex items-center gap-2 rounded-xl bg-[#3216b5] px-5 py-3 text-sm font-semibold text-white shadow-md transition duration-300 hover:bg-[#26109c]"
+            >
               <PlusCircle size={21} />
               Add New Task
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -153,17 +190,17 @@ function TaskCard() {
           <div className="flex items-center gap-3">
             <h2 className="text-lg font-semibold text-gray-900">My Tasks</h2>
             <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-600">
-              4 Due Soon
+              {tasks.filter((task) => !task.completed).length} Pending
             </span>
           </div>
 
-          <a
-            href="#"
+          <Link
+            to="/tasks"
             className="flex items-center gap-2 text-sm font-semibold text-indigo-700 hover:text-indigo-900 transition-colors"
           >
             View All Tasks
             <ArrowRight size={18} strokeWidth={2} />
-          </a>
+          </Link>
         </div>
       </div>
     </>

@@ -1,12 +1,27 @@
 import { priorityStyles } from "../data/tasks";
+import { CalendarDays, CheckCheck } from "lucide-react";
 
 function TaskItem({ task, onToggle }) {
-  const DateIcon = task.dateIcon;
-  const StatusIcon = task.statusIcon;
-  const priority = priorityStyles[task.priority];
+  const DateIcon = CalendarDays;
+  const StatusIcon = CheckCheck;
+  const priority = priorityStyles[task.priority] || priorityStyles.Medium;
+
+  const formatDate = (date) => {
+    if (!date) return "No due date";
+
+    const [year, month, day] = date.split("-").map(Number);
+
+    const formattedDate = new Date(year, month - 1, day);
+
+    return formattedDate.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
+  };
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition hover:shadow-md sm:p-8">
+    <div className="relative overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition hover:shadow-md sm:p-5">
       <div
         className="absolute left-0 top-0 h-full w-1.5"
         style={{ backgroundColor: priority.indicator }}
@@ -60,7 +75,7 @@ function TaskItem({ task, onToggle }) {
         </span>
       </div>
 
-      <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 pl-12">
+      <div className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-3 pl-12">
         <div
           className={`flex items-center gap-2 text-sm ${
             task.completed
@@ -71,7 +86,7 @@ function TaskItem({ task, onToggle }) {
           }`}
         >
           <DateIcon size={19} />
-          <span>{task.date}</span>
+          <span>{formatDate(task.date)}</span>
         </div>
 
         <span className="rounded-md bg-indigo-50 px-3 py-1.5 text-sm font-medium text-gray-700">

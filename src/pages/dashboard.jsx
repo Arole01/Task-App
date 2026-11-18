@@ -4,6 +4,7 @@ import ProductivityProgress from "../components/productivityProgress";
 import UpcomingTasks from "../components/upcomingTasks";
 import Footer from "../components/footer";
 import DailyMotivation from "../components/daily-motivation";
+import TaskAnalytics from "../components/taskAnalytics";
 
 function Dashboard({ currentUser, tasks, setTasks }) {
   return (
@@ -16,7 +17,7 @@ function Dashboard({ currentUser, tasks, setTasks }) {
                 Welcome back, {currentUser.firstname}!
               </h1>
 
-              <p className="mt-2 text-sm text-gray-500">
+              <p className="mt-2 pl-8 text-sm text-gray-500">
                 Here's an overview of your productivity today.
               </p>
             </div>
@@ -30,8 +31,8 @@ function Dashboard({ currentUser, tasks, setTasks }) {
 
             <div className="min-w-0 space-y-6 lg:col-span-2 gap-5">
               <DailyMotivation />
+              <TaskAnalytics tasks={tasks} />
               <ProductivityProgress tasks={tasks} />
-
               <UpcomingTasks tasks={tasks} />
             </div>
           </div>

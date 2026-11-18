@@ -1,19 +1,16 @@
 function ProductivityProgress({ tasks }) {
   const today = new Date();
 
-  // Find the Monday of the current week
   const startOfWeek = new Date(today);
   const day = today.getDay();
 
   startOfWeek.setDate(today.getDate() - (day === 0 ? 6 : day - 1));
   startOfWeek.setHours(0, 0, 0, 0);
 
-  // Find the Sunday of the current week
   const endOfWeek = new Date(startOfWeek);
   endOfWeek.setDate(startOfWeek.getDate() + 6);
   endOfWeek.setHours(23, 59, 59, 999);
 
-  // Get tasks due this week
   const weeklyTasks = tasks.filter((task) => {
     if (!task.date) return false;
 
@@ -23,12 +20,10 @@ function ProductivityProgress({ tasks }) {
     return dueDate >= startOfWeek && dueDate <= endOfWeek;
   });
 
-  // Count completed tasks due this week
   const completedTasks = weeklyTasks.filter((task) => task.completed).length;
 
   const totalTasks = weeklyTasks.length;
 
-  // Calculate completion percentage
   const progress =
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 

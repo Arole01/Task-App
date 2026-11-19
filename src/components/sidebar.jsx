@@ -24,6 +24,7 @@ const menuItems = [
     name: "Add New Task",
     icon: CirclePlus,
     path: "/addtask",
+    requiresLogin: true,
   },
   {
     name: "Completed Tasks",
@@ -32,7 +33,7 @@ const menuItems = [
   },
 ];
 
-function SideBar({ currentUser, onLogout }) {
+function SideBar({ currentUser, onLogout, onRequireLogin }) {
   return (
     <section className="sticky top-0 flex h-screen w-[280px] shrink-0 flex-col border-r border-gray-100 bg-white px-3 py-5 transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900">
       <div className="mb-10 flex items-center justify-between px-2">
@@ -62,6 +63,12 @@ function SideBar({ currentUser, onLogout }) {
               key={item.name}
               to={item.path}
               end={item.path === "/"}
+              onClick={(e) => {
+                if (item.requiresLogin && !currentUser) {
+                  e.preventDefault();
+                  onRequireLogin();
+                }
+              }}
               className={({ isActive }) =>
                 `flex w-full items-center gap-3 rounded-xl px-4 py-3 text-left transition-all duration-200 ${
                   isActive
@@ -71,7 +78,6 @@ function SideBar({ currentUser, onLogout }) {
               }
             >
               <Icon size={21} strokeWidth={2} className="shrink-0" />
-
               <span className="text-sm">{item.name}</span>
             </NavLink>
           );

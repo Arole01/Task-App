@@ -14,8 +14,9 @@ import {
 } from "lucide-react";
 import { toast } from "sonner";
 import { priorityStyles } from "../data/tasks";
+import DeleteConfirmModal from "../components/deleteConfirmModal";
 
-function AllTasks({ tasks, setTasks }) {
+function AllTasks({ tasks, setTasks, currentUser, onRequireLogin }) {
   const [activeTab, setActiveTab] = useState("All");
   const [search, setSearch] = useState("");
   const [priorityFilter, setPriorityFilter] = useState("All");
@@ -25,6 +26,7 @@ function AllTasks({ tasks, setTasks }) {
 
   const [selectedTask, setSelectedTask] = useState(null);
   const [editingTask, setEditingTask] = useState(null);
+  const [taskToDelete, setTaskToDelete] = useState(null);
 
   const tasksPerPage = 5;
 
@@ -35,6 +37,7 @@ function AllTasks({ tasks, setTasks }) {
     if (task.completed || !task.date) {
       return false;
     }
+
     const dateMatch = /^(\d{4})-(\d{2})-(\d{2})$/.exec(task.date);
 
     if (!dateMatch) {
@@ -46,6 +49,7 @@ function AllTasks({ tasks, setTasks }) {
       Number(dateMatch[2]) - 1,
       Number(dateMatch[3]),
     );
+
     return dueDate < today;
   };
 
@@ -145,6 +149,8 @@ function AllTasks({ tasks, setTasks }) {
   );
 
   const toggleTask = (id) => {
+    if (!onRequireLogin()) return;
+
     setTasks((previousTasks) =>
       previousTasks.map((task) =>
         task.id === id
@@ -158,9 +164,21 @@ function AllTasks({ tasks, setTasks }) {
     );
   };
 
-  const deleteTask = (id) => {
-    setTasks((previousTasks) => previousTasks.filter((task) => task.id !== id));
+  const deleteTask = (task) => {
+    if (!onRequireLogin()) return;
 
+    setTaskToDelete(task);
+  };
+
+  const confirmDeleteTask = () => {
+    if (!onRequireLogin()) return;
+    if (!taskToDelete) return;
+
+    setTasks((previousTasks) =>
+      previousTasks.filter((task) => task.id !== taskToDelete.id),
+    );
+
+    setTaskToDelete(null);
     setSelectedTask(null);
     setEditingTask(null);
 
@@ -169,6 +187,8 @@ function AllTasks({ tasks, setTasks }) {
 
   const saveEditedTask = (e) => {
     e.preventDefault();
+
+    if (!onRequireLogin()) return;
 
     if (!editingTask.title.trim()) {
       toast.error("Please enter a task title");
@@ -189,6 +209,7 @@ function AllTasks({ tasks, setTasks }) {
           : task,
       ),
     );
+
     setEditingTask(null);
     toast.success("Task updated successfully");
   };
@@ -293,6 +314,7 @@ function AllTasks({ tasks, setTasks }) {
               }`}
             >
               {tab.name}
+
               <span className="ml-2 rounded-full bg-gray-100 px-2 py-0.5 text-xs text-gray-600 dark:bg-gray-800 dark:text-gray-300">
                 {tab.count}
               </span>
@@ -366,7 +388,11 @@ function AllTasks({ tasks, setTasks }) {
                       <button
                         type="button"
                         onClick={() => toggleTask(task.id)}
-                        title="Toggle task completion"
+                        title={
+                          currentUser
+                            ? "Toggle task completion"
+                            : "Log in to change task status"
+                        }
                         className={`mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-md border-2 ${
                           task.completed
                             ? "border-emerald-600 bg-emerald-600 text-white"
@@ -443,8 +469,13 @@ function AllTasks({ tasks, setTasks }) {
 
                       <button
                         type="button"
-                        onClick={() => setEditingTask({ ...task })}
-                        title="Edit task"
+                        onClick={() => {
+                          if (!onRequireLogin()) return;
+                          setEditingTask({ ...task });
+                        }}
+                        title={
+                          currentUser ? "Edit task" : "Log in to edit this task"
+                        }
                         className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         <Pencil size={18} />
@@ -452,9 +483,13 @@ function AllTasks({ tasks, setTasks }) {
 
                       <button
                         type="button"
-                        onClick={() => deleteTask(task.id)}
-                        title="Delete task"
-                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-indigo-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
+                        onClick={() => deleteTask(task)}
+                        title={
+                          currentUser
+                            ? "Delete task"
+                            : "Log in to delete this task"
+                        }
+                        className="rounded-lg border border-gray-200 p-2 text-gray-500 transition hover:bg-gray-50 hover:text-red-600 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
                       >
                         <Trash2 size={18} />
                       </button>
@@ -517,43 +552,45 @@ function AllTasks({ tasks, setTasks }) {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4">
           <div className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-xl dark:bg-gray-900">
             <div className="mb-5 flex items-center justify-between">
-              <h2 className="text-xl font-bold text-gray-900">Task Details</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">
+                Task Details
+              </h2>
 
               <button
                 type="button"
                 onClick={() => setSelectedTask(null)}
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <X size={20} />
               </button>
             </div>
 
-            <h3 className="text-lg font-semibold text-gray-900">
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {selectedTask.title}
             </h3>
 
-            <p className="mt-2 text-sm leading-6 text-gray-600">
+            <p className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
               {selectedTask.description || "No description provided"}
             </p>
 
-            <div className="mt-5 space-y-3 text-sm">
+            <div className="mt-5 space-y-3 text-sm text-gray-700 dark:text-gray-300">
               <p>
-                <span className="font-semibold text-gray-800">Category: </span>
+                <span className="font-semibold">Category: </span>
                 {selectedTask.category}
               </p>
 
               <p>
-                <span className="font-semibold text-gray-800">Priority: </span>
+                <span className="font-semibold">Priority: </span>
                 {selectedTask.priority}
               </p>
 
               <p>
-                <span className="font-semibold text-gray-800">Due date: </span>
+                <span className="font-semibold">Due date: </span>
                 {formatDate(selectedTask.date)}
               </p>
 
               <p>
-                <span className="font-semibold text-gray-800">Status: </span>
+                <span className="font-semibold">Status: </span>
                 {selectedTask.completed ? "Completed" : "Pending"}
               </p>
             </div>
@@ -583,14 +620,14 @@ function AllTasks({ tasks, setTasks }) {
               <button
                 type="button"
                 onClick={() => setEditingTask(null)}
-                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100"
+                className="rounded-lg p-2 text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <X size={20} />
               </button>
             </div>
 
             <div className="space-y-4">
-              <div className="text-lg font-semibold text-gray-900 dark:text-white">
+              <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Task Title
                 </label>
@@ -604,12 +641,12 @@ function AllTasks({ tasks, setTasks }) {
                       title: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                   required
                 />
               </div>
 
-              <div className="mt-2 text-sm leading-6 text-gray-600 dark:text-gray-400">
+              <div>
                 <label className="mb-2 block text-sm font-medium text-gray-700 dark:text-gray-300">
                   Description
                 </label>
@@ -645,7 +682,7 @@ function AllTasks({ tasks, setTasks }) {
                       date: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 bg-white py-3 pl-10 pr-4 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white dark:placeholder:text-gray-500"
+                  className="w-full rounded-lg border border-gray-200 bg-white px-4 py-3 text-sm text-gray-900 outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-900 dark:text-white"
                 />
               </div>
 
@@ -683,7 +720,7 @@ function AllTasks({ tasks, setTasks }) {
                       priority: e.target.value,
                     })
                   }
-                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500"
+                  className="w-full rounded-lg border border-gray-200 px-4 py-3 text-sm outline-none focus:border-indigo-500 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
                 >
                   <option value="High">High</option>
                   <option value="Medium">Medium</option>
@@ -711,6 +748,12 @@ function AllTasks({ tasks, setTasks }) {
           </form>
         </div>
       )}
+
+      <DeleteConfirmModal
+        task={taskToDelete}
+        onCancel={() => setTaskToDelete(null)}
+        onConfirm={confirmDeleteTask}
+      />
     </section>
   );
 }

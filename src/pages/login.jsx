@@ -40,39 +40,43 @@ function Login({ setCurrentUser }) {
 
   return (
     <>
-      <section className="flex min-h-[80vh] items-center justify-center bg-[#f7f8fc] px-4 py-12">
-        <div className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-6 shadow-sm sm:p-10">
+      <section className="flex min-h-[80vh] items-center justify-center bg-[#f7f8fc] px-4 py-12 transition-colors duration-300 dark:bg-gray-950">
+        <div className="w-full max-w-md rounded-2xl border border-gray-100 bg-white p-6 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-10">
           <div className="mb-8 text-center">
-            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100">
-              <LockKeyhole className="h-7 w-7 text-indigo-600" />
+            <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-indigo-100 dark:bg-indigo-950">
+              <LockKeyhole className="h-7 w-7 text-indigo-600 dark:text-indigo-400" />
             </div>
 
-            <h1 className="text-2xl font-bold tracking-tight text-gray-900">
+            <h1 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
               Welcome!
             </h1>
 
-            <p className="mt-2 text-sm text-gray-500">
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400">
               Sign in to continue managing your tasks
             </p>
           </div>
 
           <form onSubmit={handleSubmit(handleLogin)} className="space-y-5">
             <div>
-              <label className="mb-2 block text-sm font-semibold text-gray-700">
+              <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Email Address
               </label>
+
               <div className="relative">
                 <Mail className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
 
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className={`w-full rounded-lg border bg-gray-50 pl-12 py-3 pr-4 text-sm  outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 ${
-                    errors.email ? "border-red-400" : "border-gray-200"
+                  className={`w-full rounded-lg border bg-gray-50 py-3 pr-4 pl-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:bg-gray-800 dark:focus:ring-indigo-950 ${
+                    errors.email
+                      ? "border-red-400"
+                      : "border-gray-200 dark:border-gray-700"
                   }`}
                   {...register("email")}
                 />
               </div>
+
               {errors.email && (
                 <p className="mt-1.5 text-xs text-red-500">
                   {errors.email.message}
@@ -81,21 +85,25 @@ function Login({ setCurrentUser }) {
             </div>
 
             <div>
-              <label className="mb-2 block text-sm font-semibold text-gray-700">
+              <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">
                 Password
               </label>
 
               <div className="relative">
                 <LockKeyhole className="absolute left-4 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
-                  className={`w-full rounded-lg border bg-gray-50 pl-12 py-3 pr-4 text-sm  outline-none transition focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 ${
-                    errors.password ? "border-red-400" : "border-gray-200"
+                  className={`w-full rounded-lg border bg-gray-50 py-3 pr-4 pl-12 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:bg-white focus:ring-4 focus:ring-indigo-100 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:bg-gray-800 dark:focus:ring-indigo-950 ${
+                    errors.password
+                      ? "border-red-400"
+                      : "border-gray-200 dark:border-gray-700"
                   }`}
                   {...register("password")}
                 />
               </div>
+
               {errors.password && (
                 <p className="mt-1.5 text-xs text-red-500">
                   {errors.password.message}
@@ -113,7 +121,7 @@ function Login({ setCurrentUser }) {
 
                 <label
                   htmlFor="showPassword"
-                  className="cursor-pointer text-sm text-gray-600"
+                  className="cursor-pointer text-sm text-gray-600 dark:text-gray-400"
                 >
                   Show password
                 </label>
@@ -130,8 +138,8 @@ function Login({ setCurrentUser }) {
             />
           </form>
 
-          <div className="mt-8 border-t border-gray-100 pt-6 text-center">
-            <p className="text-sm text-gray-500">
+          <div className="mt-8 border-t border-gray-100 pt-6 text-center dark:border-gray-700">
+            <p className="text-sm text-gray-500 dark:text-gray-400">
               New user?👇
               <Link to="/register">
                 {" "}
@@ -139,7 +147,7 @@ function Login({ setCurrentUser }) {
                   label="Register"
                   btnSize="sm"
                   btnStyle="secondary"
-                  className="font-semibold text-indigo-600 hover:text-indigo-700"
+                  className="font-semibold text-indigo-600 hover:text-indigo-700 dark:text-indigo-400 dark:hover:text-indigo-300"
                 />
               </Link>
             </p>

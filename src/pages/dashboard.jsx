@@ -27,7 +27,11 @@ function Dashboard({ currentUser, tasks, setTasks }) {
 
           <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-5">
             <div className="min-w-0 lg:col-span-3">
-              <TaskList tasks={tasks} setTasks={setTasks} />
+              <TaskList
+                tasks={tasks}
+                setTasks={setTasks}
+                currentUser={currentUser}
+              />
             </div>
 
             <div className="min-w-0 space-y-6 lg:col-span-2">

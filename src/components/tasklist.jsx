@@ -1,10 +1,23 @@
 import TaskItem from "../components/taskItem";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
+import { toast } from "sonner";
 
-function TaskList({ tasks, setTasks }) {
+function TaskList({ tasks, setTasks, currentUser }) {
+  const navigate = useNavigate();
+
+  const requireLogin = () => {
+    toast.error("Please log in to manage your tasks.");
+    navigate("/login");
+  };
+
   const toggleTask = (id) => {
-    setTasks(
-      tasks.map((task) =>
+    if (!currentUser) {
+      requireLogin();
+      return;
+    }
+
+    setTasks((previousTasks) =>
+      previousTasks.map((task) =>
         task.id === id
           ? {
               ...task,
@@ -30,12 +43,22 @@ function TaskList({ tasks, setTasks }) {
             Create your first task to get started.
           </p>
 
-          <Link
-            to="/addtask"
-            className="mt-4 inline-block font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
-          >
-            Add a task
-          </Link>
+          {currentUser ? (
+            <Link
+              to="/addtask"
+              className="mt-4 inline-block font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              Add a task
+            </Link>
+          ) : (
+            <button
+              type="button"
+              onClick={requireLogin}
+              className="mt-4 font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+            >
+              Log in to add a task
+            </button>
+          )}
         </div>
       ) : (
         recentTasks.map((task) => (

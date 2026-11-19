@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
 import { Info, CircleCheck } from "lucide-react";
 import { toast } from "sonner";
 import { priorityStyles } from "../data/tasks";
 
-function AddTask({ currentUser, setTasks }) {
+function AddTask({ currentUser, setTasks, onRequireLogin }) {
   const navigate = useNavigate();
 
   const [taskData, setTaskData] = useState({
@@ -14,6 +14,13 @@ function AddTask({ currentUser, setTasks }) {
     priority: "Medium",
     dueDate: "",
   });
+
+  // Prevent logged-out visitors from opening this page directly
+  useEffect(() => {
+    if (!currentUser) {
+      onRequireLogin();
+    }
+  }, [currentUser, onRequireLogin]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,6 +32,7 @@ function AddTask({ currentUser, setTasks }) {
   };
 
   const today = new Date();
+
   const formattedToday = [
     today.getFullYear(),
     String(today.getMonth() + 1).padStart(2, "0"),
@@ -35,11 +43,9 @@ function AddTask({ currentUser, setTasks }) {
     e.preventDefault();
 
     if (!currentUser) {
-      toast.error("You must login to add task");
+      onRequireLogin();
       return;
     }
-
-    // const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
     const newTask = {
       id: Date.now(),
@@ -53,12 +59,15 @@ function AddTask({ currentUser, setTasks }) {
     };
 
     setTasks((previousTasks) => [...previousTasks, newTask]);
-    // tasks.push(newTask);
 
-    // localStorage.setItem("tasks", JSON.stringify(tasks));
-    toast.success("Tasks created successully");
+    toast.success("Task created successfully");
     navigate("/");
   };
+
+  if (!currentUser) {
+    return null;
+  }
+
   return (
     <main className="min-h-screen bg-[#f7f8fc] px-4 py-8 transition-colors duration-300 dark:bg-gray-950 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
@@ -68,7 +77,7 @@ function AddTask({ currentUser, setTasks }) {
             New Workflow Item
           </p>
 
-          <h1 className="text-3xl font-bold tracing-tight text-gray-900 dark:text-white">
+          <h1 className="text-3xl font-bold tracking-tight text-gray-900 dark:text-white">
             Create New Task
           </h1>
 
@@ -91,6 +100,7 @@ function AddTask({ currentUser, setTasks }) {
                 {taskData.title.length} / 80
               </span>
             </div>
+
             <input
               type="text"
               name="title"
@@ -176,11 +186,8 @@ function AddTask({ currentUser, setTasks }) {
                       >
                         <span
                           className="h-2.5 w-2.5 rounded-full"
-                          style={{
-                            backgroundColor: style.indicator,
-                          }}
+                          style={{ backgroundColor: style.indicator }}
                         ></span>
-
                         {level}
                       </button>
                     );
@@ -203,7 +210,7 @@ function AddTask({ currentUser, setTasks }) {
                 onChange={handleChange}
                 min={formattedToday}
                 required
-                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition placeholder:text-gray-400 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:placeholder:text-gray-500 dark:focus:ring-indigo-900"
+                className="w-full rounded-lg border border-gray-300 bg-white px-4 py-3 text-sm text-gray-900 outline-none transition focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100 dark:border-gray-600 dark:bg-gray-800 dark:text-white dark:focus:ring-indigo-900"
               />
             </div>
 

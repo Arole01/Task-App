@@ -25,7 +25,7 @@ function Dashboard({ currentUser, tasks, setTasks }) {
 
           <TaskCard tasks={tasks} />
 
-          <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-5">
+          <div className="mt-6 grid grid-cols-1 items-stretch gap-6 lg:grid-cols-5">
             <div className="min-w-0 lg:col-span-3">
               <TaskList
                 tasks={tasks}
@@ -34,7 +34,7 @@ function Dashboard({ currentUser, tasks, setTasks }) {
               />
             </div>
 
-            <div className="min-w-0 space-y-6 lg:col-span-2">
+            <div className="flex min-w-0 flex-col gap-3 lg:col-span-2">
               <DailyMotivation />
 
               <TaskAnalytics tasks={tasks} />

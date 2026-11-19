@@ -15,7 +15,7 @@ function UpcomingTasks({ tasks }) {
       return dueDate >= today;
     })
     .sort((a, b) => a.date.localeCompare(b.date))
-    .slice(0, 5);
+    .slice(0, 3);
 
   const formatDate = (date) => {
     const [year, month, day] = date.split("-").map(Number);
@@ -27,8 +27,8 @@ function UpcomingTasks({ tasks }) {
   };
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-6">
-      <div className="mb-5 flex items-center justify-between gap-3">
+    <section className="h-fit max-h-[380px] overflow-hidden rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-5">
+      <div className="mb-3 flex items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
             Upcoming Tasks
@@ -41,7 +41,7 @@ function UpcomingTasks({ tasks }) {
 
         <Link
           to="/tasks"
-          className="flex items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
+          className="flex shrink-0 items-center gap-1 text-sm font-semibold text-indigo-600 hover:text-indigo-800 dark:text-indigo-400 dark:hover:text-indigo-300"
         >
           View All
           <ArrowRight size={16} />
@@ -53,7 +53,7 @@ function UpcomingTasks({ tasks }) {
           {upcomingTasks.map((task) => (
             <div
               key={task.id}
-              className="flex items-center justify-between gap-4 py-4 first:pt-0 last:pb-0"
+              className="flex items-center justify-between gap-4 py-2 first:pt-0 last:pb-0"
             >
               <div className="flex min-w-0 items-start gap-3">
                 <span className="mt-1.5 h-2.5 w-2.5 shrink-0 rounded-full bg-indigo-600" />
@@ -77,7 +77,7 @@ function UpcomingTasks({ tasks }) {
           ))}
         </div>
       ) : (
-        <div className="py-8 text-center">
+        <div className="py-6 text-center">
           <CalendarDays
             size={30}
             className="mx-auto mb-3 text-gray-300 dark:text-gray-600"

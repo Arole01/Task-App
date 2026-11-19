@@ -43,9 +43,9 @@ function DailyMotivation() {
   const message = motivationMessages[dayNumber % motivationMessages.length];
 
   return (
-    <section className="relative overflow-hidden rounded-2xl bg-indigo-700 p-5 text-white shadow-sm sm:p-6">
+    <section className="relative overflow-hidden rounded-2xl bg-indigo-700 p-4 text-white shadow-sm sm:p-5">
       <div className="relative z-10">
-        <div className="mb-4 flex items-center gap-2">
+        <div className="mb-3 flex items-center gap-2">
           <div className="rounded-lg bg-white/15 p-2">
             <Lightbulb size={20} />
           </div>
@@ -55,11 +55,11 @@ function DailyMotivation() {
           </p>
         </div>
 
-        <blockquote className="max-w-2xl text-lg font-semibold leading-relaxed sm:text-xl">
+        <blockquote className="max-w-2xl text-base font-semibold leading-relaxed sm:text-lg">
           "{message.quote}"
         </blockquote>
 
-        <p className="mt-4 text-sm text-indigo-200">— {message.author}</p>
+        <p className="mt-2 text-sm text-indigo-200">— {message.author}</p>
       </div>
 
       <div className="pointer-events-none absolute -right-8 -bottom-12 h-40 w-40 rounded-full bg-white/10" />

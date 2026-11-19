@@ -28,8 +28,8 @@ function ProductivityProgress({ tasks }) {
     totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100);
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-6">
-      <div className="mb-5 flex flex-wrap items-center justify-between gap-3">
+    <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-5">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
             Weekly Productivity
@@ -47,7 +47,7 @@ function ProductivityProgress({ tasks }) {
 
       <div className="mb-3 flex items-end justify-between">
         <div>
-          <p className="text-3xl font-bold text-gray-900 dark:text-white">
+          <p className="text-2xl font-bold text-gray-900 dark:text-white">
             {progress}%
           </p>
 
@@ -68,7 +68,7 @@ function ProductivityProgress({ tasks }) {
         />
       </div>
 
-      <p className="mt-3 text-xs text-gray-500 dark:text-gray-400">
+      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
         {totalTasks === 0
           ? "No tasks are due this week. Add a task to get started!"
           : progress === 100

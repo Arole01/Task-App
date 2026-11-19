@@ -59,8 +59,8 @@ function TaskAnalytics({ tasks }) {
   const pendingTotal = chartData.reduce((total, day) => total + day.pending, 0);
 
   return (
-    <section className="rounded-2xl border border-gray-100 bg-white p-5 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-6">
-      <div className="mb-6 flex flex-wrap items-center justify-between gap-3">
+    <section className="rounded-2xl border border-gray-100 bg-white p-4 shadow-sm transition-colors duration-300 dark:border-gray-700 dark:bg-gray-900 sm:p-5">
+      <div className="mb-3 flex flex-wrap items-center justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-gray-900 dark:text-white">
             Task Analytics
@@ -76,13 +76,13 @@ function TaskAnalytics({ tasks }) {
         </span>
       </div>
 
-      <div className="mb-6 grid grid-cols-2 gap-4">
-        <div className="rounded-xl bg-indigo-50 p-3 dark:bg-indigo-950">
+      <div className="mb-6 grid grid-cols-2 gap-3">
+        <div className="rounded-xl bg-indigo-50 p-2.5 dark:bg-indigo-950">
           <p className="text-xs font-medium text-indigo-600 dark:text-indigo-300">
             Completed Tasks
           </p>
 
-          <p className="mt-1 text-2xl font-bold text-indigo-700 dark:text-indigo-200">
+          <p className="mt-1 text-xl font-bold text-indigo-700 dark:text-indigo-200">
             {completedTotal}
           </p>
         </div>
@@ -98,7 +98,7 @@ function TaskAnalytics({ tasks }) {
         </div>
       </div>
 
-      <div className="h-64 w-full">
+      <div className="h-32 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={chartData}
@@ -146,7 +146,7 @@ function TaskAnalytics({ tasks }) {
               iconType="circle"
               wrapperStyle={{
                 fontSize: "12px",
-                paddingTop: "15px",
+                paddingTop: "5px",
                 color: "#9CA3AF",
               }}
             />

@@ -28,7 +28,7 @@ function DeleteConfirmModal({ task, onCancel, onConfirm }) {
 
               <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
                 Are you sure you want to delete this task? This action cannot be
-                undone and all tracked logs will be permanently removed.
+                undone and all deleted tasks will be permanently removed.
               </p>
             </div>
           </div>

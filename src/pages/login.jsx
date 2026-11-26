@@ -140,7 +140,7 @@ function Login({ setCurrentUser }) {
 
           <div className="mt-8 border-t border-gray-100 pt-6 text-center dark:border-gray-700">
             <p className="text-sm text-gray-500 dark:text-gray-400">
-              New user?👇
+              New user?👉
               <Link to="/register">
                 {" "}
                 <Btn

@@ -11,7 +11,6 @@ function DeleteConfirmModal({ task, onCancel, onConfirm }) {
         aria-labelledby="delete-modal-title"
         className="w-full max-w-lg rounded-2xl bg-white p-6 shadow-2xl dark:bg-gray-900"
       >
-        {/* Modal Header */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-red-100 text-red-600 dark:bg-red-950 dark:text-red-400">
